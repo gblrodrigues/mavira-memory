@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name">Mavira</string>
+
+    <!-- HomeScreen -->
+    <string name="home_app_name">Mavira Memory</string>
+    <string name="home_app_description_one">Teste sua memória.</string>
+    <string name="home_app_description_two">Encontre todos os pares!</string>
+
+    <!-- Buttons -->
+    <string name="button_play">Jogar</string>
+    <string name="button_stats">Estatísticas</string>
+    <string name="button_configs">Configurações</string>
+    <string name="button_unavailable">EM BREVE</string>
+
+    <!-- Routes -->
+    <string name="route_game">Mavira Memory</string>
+    <string name="route_settings">Configurações</string>
+    
+    <!-- GameScreen -->
+    <string name="game_movements">Movimentos</string>
+    <string name="game_movements_count">%1$d</string>
+    <string name="game_pairs">Pares encontrados</string>
+    <string name="game_pairs_count">%1$d / %2$d</string>
+
+    <!-- Dialog -->
+    <string name="dialog_title">Parabéns!</string>
+    <string name="dialog_message">Você encontrou todos os pares! %1$d / %2$d</string>
+    <string name="dialog_home">Home</string>
+    <string name="dialog_play_again">Jogar novamente</string>
+</resources>
