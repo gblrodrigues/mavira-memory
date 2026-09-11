@@ -6,14 +6,20 @@ import me.gblrod.mavira.R
 import me.gblrod.mavira.navigation.routes.Route
 
 data class TopBarConfig(
-    val title: Int
+    val title: Int,
+    val showTimer: Boolean = false
+)
+
+data class TopBarState(
+    val timer: Long = 0L
 )
 
 fun NavDestination?.topBarConfig(): TopBarConfig? {
     return when {
         this?.hasRoute<Route.Game>() == true -> {
             TopBarConfig(
-                title = R.string.route_game
+                title = R.string.route_game,
+                showTimer = true
             )
         }
 

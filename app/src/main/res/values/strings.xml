@@ -26,6 +26,7 @@
     <!-- Dialog -->
     <string name="dialog_title">Congratulations</string>
     <string name="dialog_message">You find all pairs! %1$d / %2$d</string>
+    <string name="dialog_message_timer">Play time: %1$s</string>
     <string name="dialog_home">Home</string>
     <string name="dialog_play_again">Play Again</string>
 </resources>

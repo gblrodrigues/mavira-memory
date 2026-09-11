@@ -9,7 +9,6 @@ import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
-import androidx.hilt.lifecycle.viewmodel.compose.hiltViewModel
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import me.gblrod.mavira.features.game.components.GameBoard
 import me.gblrod.mavira.features.game.components.GameSectionHeader
@@ -18,7 +17,7 @@ import me.gblrod.mavira.features.game.viewmodel.GameViewModel
 
 @Composable
 fun GameScreen(
-    gameViewModel: GameViewModel = hiltViewModel(),
+    gameViewModel: GameViewModel,
     onNavigateHome: () -> Unit
 ) {
     val uiState by gameViewModel.uiState.collectAsStateWithLifecycle()
@@ -47,6 +46,7 @@ fun GameScreen(
         ResultDialog(
             pairFound = uiState.pairsFound,
             pairTotal = uiState.pairsTotal,
+            playTime = uiState.timer,
             onNavigateHome = { onNavigateHome() },
             onRestartGame = { gameViewModel.restart() }
         )

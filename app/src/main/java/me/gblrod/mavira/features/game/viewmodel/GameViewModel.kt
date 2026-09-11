@@ -1,12 +1,15 @@
 package me.gblrod.mavira.features.game.viewmodel
 
+import android.os.SystemClock
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import dagger.hilt.android.lifecycle.HiltViewModel
+import kotlinx.coroutines.Job
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.asStateFlow
 import kotlinx.coroutines.flow.update
+import kotlinx.coroutines.isActive
 import kotlinx.coroutines.launch
 import me.gblrod.mavira.features.game.model.MemoryCard
 import me.gblrod.mavira.features.game.model.createDeck
@@ -19,6 +22,9 @@ class GameViewModel @Inject constructor() : ViewModel() {
     private val _uiState = MutableStateFlow(GameUiState())
     val uiState = _uiState.asStateFlow()
 
+    private var gameStartedAt: Long? = null
+    private var timerJob: Job? = null
+
     fun onCardClick(selectedCard: MemoryCard) {
         val currentState = _uiState.value
 
@@ -28,6 +34,10 @@ class GameViewModel @Inject constructor() : ViewModel() {
             selectedCard.isMatched
         ) {
             return
+        }
+
+        if (gameStartedAt == null) {
+            startTimer()
         }
 
         val revealedCards = currentState.cards.filter {
@@ -71,7 +81,9 @@ class GameViewModel @Inject constructor() : ViewModel() {
 
         viewModelScope.launch {
             if (firstCard.item == secondCard.item) {
+
                 _uiState.update { state ->
+                    val newPairsFound = state.pairsFound + 1
                     state.copy(
                         cards = state.cards.map { card ->
                             if (card.id == firstCard.id || card.id == secondCard.id) {
@@ -82,9 +94,13 @@ class GameViewModel @Inject constructor() : ViewModel() {
                                 card
                             }
                         },
-                        pairsFound = state.pairsFound + 1,
+                        pairsFound = newPairsFound,
                         isCheckingPair = false
                     )
+                }
+
+                if (_uiState.value.pairsFound == _uiState.value.pairsTotal) {
+                    stopTimer()
                 }
             } else {
                 delay(duration = 1_000.milliseconds)
@@ -107,7 +123,48 @@ class GameViewModel @Inject constructor() : ViewModel() {
         }
     }
 
+    private fun startTimer() {
+        if (gameStartedAt != null) return
+
+        gameStartedAt = SystemClock.elapsedRealtime()
+
+        timerJob = viewModelScope.launch {
+            while (isActive) {
+                val startTime = gameStartedAt ?: break
+
+                val elapsed = (SystemClock.elapsedRealtime() - startTime) / 1_000
+
+                _uiState.update {
+                    it.copy(
+                        timer = elapsed
+                    )
+                }
+
+                delay(duration = 250.milliseconds)
+            }
+        }
+    }
+
+    private fun stopTimer() {
+        val startTime = gameStartedAt ?: return
+
+        val elapsed = (SystemClock.elapsedRealtime() - startTime) / 1_000
+
+        timerJob?.cancel()
+        timerJob = null
+
+        _uiState.update {
+            it.copy(
+                timer = elapsed
+            )
+        }
+    }
+
     fun restart() {
+        timerJob?.cancel()
+        timerJob = null
+        gameStartedAt = null
+
         _uiState.value = GameUiState(
             cards = createDeck()
         )

@@ -6,11 +6,15 @@ import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Scaffold
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
+import androidx.compose.runtime.mutableStateOf
+import androidx.compose.runtime.remember
+import androidx.compose.runtime.setValue
 import androidx.compose.ui.Modifier
 import androidx.navigation.compose.currentBackStackEntryAsState
 import androidx.navigation.compose.rememberNavController
 import me.gblrod.mavira.navigation.graph.NavigationGraph
 import me.gblrod.mavira.shared.components.topbar.MaviraAppBar
+import me.gblrod.mavira.shared.components.topbar.TopBarState
 import me.gblrod.mavira.shared.components.topbar.topBarConfig
 
 @OptIn(ExperimentalMaterial3Api::class)
@@ -22,6 +26,8 @@ fun MaviraApp() {
     val destination = backStackEntry?.destination
     val topBarConfig = destination.topBarConfig()
 
+    var topBarState by remember { mutableStateOf(TopBarState()) }
+
     Scaffold(
         modifier = Modifier.fillMaxSize(),
         containerColor = MaterialTheme.colorScheme.background,
@@ -29,14 +35,16 @@ fun MaviraApp() {
             topBarConfig?.let { config ->
                 MaviraAppBar(
                     config = config,
-                    onBackClick = { navHostController.popBackStack() }
+                    onBackClick = { navHostController.popBackStack() },
+                    timer = topBarState.timer
                 )
             }
         }
     ) { paddingValues ->
         NavigationGraph(
             navHostController = navHostController,
-            paddingValues = paddingValues
+            paddingValues = paddingValues,
+            onTopBarStateChange = { topBarState = it }
         )
     }
 }
