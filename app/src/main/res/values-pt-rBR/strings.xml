@@ -26,6 +26,7 @@
     <!-- Dialog -->
     <string name="dialog_title">Parabéns!</string>
     <string name="dialog_message">Você encontrou todos os pares! %1$d / %2$d</string>
+    <string name="dialog_message_timer">Tempo jogado: %1$s</string>
     <string name="dialog_home">Home</string>
     <string name="dialog_play_again">Jogar novamente</string>
 </resources>

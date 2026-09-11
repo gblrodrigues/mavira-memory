@@ -5,11 +5,13 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.res.stringResource
 import me.gblrod.mavira.R
 import me.gblrod.mavira.shared.components.SelectionAlertDialog
+import me.gblrod.mavira.shared.extension.toTimerFormat
 
 @Composable
 fun ResultDialog(
     pairFound: Int,
     pairTotal: Int,
+    playTime: Long,
     onNavigateHome: () -> Unit,
     onRestartGame: () -> Unit
 ) {
@@ -22,6 +24,10 @@ fun ResultDialog(
         text = {
             Text(
                 text = stringResource(id = R.string.dialog_message, pairFound, pairTotal)
+            )
+
+            Text(
+                text = stringResource(id = R.string.dialog_message_timer, playTime.toTimerFormat())
             )
         },
         onConfirm = { onRestartGame() },
