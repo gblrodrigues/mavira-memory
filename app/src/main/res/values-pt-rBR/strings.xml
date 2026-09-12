@@ -12,6 +12,7 @@
     <string name="button_stats">Estatísticas</string>
     <string name="button_configs">Configurações</string>
     <string name="button_unavailable">EM BREVE</string>
+    <string name="button_restart_game">Reiniciar</string>
 
     <!-- Routes -->
     <string name="route_game">Mavira Memory</string>
@@ -29,4 +30,11 @@
     <string name="dialog_message_timer">Tempo jogado: %1$s</string>
     <string name="dialog_home">Home</string>
     <string name="dialog_play_again">Jogar novamente</string>
+    <string name="dialog_restart_game_title">Reiniciar a partida?</string>
+    <string name="dialog_restart_game_message">Seu progresso atual será perdido.</string>
+    <string name="dialog_restart_game_pairs">Pares encontrados</string>
+    <string name="dialog_restart_game_moves">Movimentos</string>
+    <string name="dialog_restart_game_play_time">Tempo jogado</string>
+    <string name="dialog_restart_game_confirm">Reiniciar</string>
+    <string name="dialog_restart_game_cancel">Cancelar</string>
 </resources>

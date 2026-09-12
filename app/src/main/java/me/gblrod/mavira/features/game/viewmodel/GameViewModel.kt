@@ -24,6 +24,7 @@ class GameViewModel @Inject constructor() : ViewModel() {
 
     private var gameStartedAt: Long? = null
     private var timerJob: Job? = null
+    private var checkPairJob: Job? = null
 
     fun onCardClick(selectedCard: MemoryCard) {
         val currentState = _uiState.value
@@ -38,6 +39,12 @@ class GameViewModel @Inject constructor() : ViewModel() {
 
         if (gameStartedAt == null) {
             startTimer()
+        }
+
+        _uiState.update {
+            it.copy(
+                isGameStarted = true
+            )
         }
 
         val revealedCards = currentState.cards.filter {
@@ -79,7 +86,7 @@ class GameViewModel @Inject constructor() : ViewModel() {
             )
         }
 
-        viewModelScope.launch {
+        checkPairJob = viewModelScope.launch {
             if (firstCard.item == secondCard.item) {
 
                 _uiState.update { state ->
@@ -163,6 +170,10 @@ class GameViewModel @Inject constructor() : ViewModel() {
     fun restart() {
         timerJob?.cancel()
         timerJob = null
+
+        checkPairJob?.cancel()
+        checkPairJob = null
+
         gameStartedAt = null
 
         _uiState.value = GameUiState(
