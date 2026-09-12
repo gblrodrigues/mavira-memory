@@ -12,6 +12,7 @@
     <string name="button_stats">Statistics</string>
     <string name="button_configs">Settings</string>
     <string name="button_unavailable">COMING SOON</string>
+    <string name="button_restart_game">Restart</string>
 
     <!-- Routes -->
     <string name="route_game">Mavira Memory</string>
@@ -29,4 +30,12 @@
     <string name="dialog_message_timer">Play time: %1$s</string>
     <string name="dialog_home">Home</string>
     <string name="dialog_play_again">Play Again</string>
+    <string name="dialog_restart_game_title">Restart game?</string>
+    <string name="dialog_restart_game_message">Your current progress will be lost.</string>
+    <string name="dialog_restart_game_pairs">Pairs found</string>
+    <string name="dialog_restart_game_moves">Moves</string>
+    <string name="dialog_restart_game_play_time">Play time</string>
+    <string name="dialog_restart_game_confirm">Restart</string>
+    <string name="dialog_restart_game_cancel">Cancel</string>
+
 </resources>

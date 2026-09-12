@@ -10,5 +10,6 @@ data class GameUiState(
     val pairsFound: Int = 0,
     val pairsTotal: Int = 8,
     val gridSize: Int = 4,
-    val timer: Long = 0
+    val timer: Long = 0,
+    val isGameStarted: Boolean = false
 )

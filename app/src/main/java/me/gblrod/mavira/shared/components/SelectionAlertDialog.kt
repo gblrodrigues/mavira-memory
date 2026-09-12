@@ -14,7 +14,7 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.window.DialogProperties
-import me.gblrod.mavira.ui.theme.ButtonContainerDialog
+import me.gblrod.mavira.ui.theme.LightBlue
 
 @Composable
 fun SelectionAlertDialog(
@@ -40,7 +40,7 @@ fun SelectionAlertDialog(
         confirmButton = {
             TextButton(
                 onClick = onConfirm,
-                colors = ButtonDefaults.buttonColors(containerColor = ButtonContainerDialog),
+                colors = ButtonDefaults.buttonColors(containerColor = LightBlue),
                 shape = RoundedCornerShape(16.dp)
             ) {
                 Text(
@@ -54,14 +54,14 @@ fun SelectionAlertDialog(
                 onClick = { onDismiss?.invoke() },
                 border = BorderStroke(
                     width = 1.dp,
-                    color = ButtonContainerDialog
+                    color = LightBlue
                 ),
                 colors = ButtonDefaults.buttonColors(containerColor = Color.Transparent),
                 shape = RoundedCornerShape(16.dp)
             ) {
                 Text(
                     text = dismissText,
-                    color = ButtonContainerDialog
+                    color = LightBlue
                 )
             }
         },
