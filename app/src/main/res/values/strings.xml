@@ -16,6 +16,7 @@
 
     <!-- Routes -->
     <string name="route_game">Mavira Memory</string>
+    <string name="route_statistics">Statistics</string>
     <string name="route_settings">Settings</string>
 
     <!-- GameScreen -->
@@ -23,6 +24,23 @@
     <string name="game_movements_count">%1$d</string>
     <string name="game_pairs">Pairs found</string>
     <string name="game_pairs_count">%1$d / %2$d</string>
+
+    <!-- Statistics -->
+    <string name="statistics_title">Statistics</string>
+    <string name="statistics_description">Your best results and game progress.</string>
+    <string name="statistics_games_played">Games Played</string>
+    <string name="statistics_best_time">Best Time</string>
+    <string name="statistics_best_moves">Best Moves</string>
+    <string name="statistics_average_time">Average Time</string>
+    <string name="statistics_recent_game_label">Recent Games</string>
+    <string name="statistics_recent_game_description">Your latest completed games.</string>
+    <string name="statistics_no_games_title">Complete your first game</string>
+    <string name="statistics_no_games_description">to start building your history.</string>
+    <string name="statistics_no_games_start">Play now</string>
+    <string name="statistics_today">Today</string>
+    <string name="statistics_yesterday">Yesterday</string>
+    <string name="statistics_plays">Plays</string>
+    <string name="statistics_timer">Timer</string>
 
     <!-- Dialog -->
     <string name="dialog_title">Congratulations</string>

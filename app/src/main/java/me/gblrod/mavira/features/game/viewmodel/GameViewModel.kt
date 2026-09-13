@@ -11,6 +11,8 @@ import kotlinx.coroutines.flow.asStateFlow
 import kotlinx.coroutines.flow.update
 import kotlinx.coroutines.isActive
 import kotlinx.coroutines.launch
+import me.gblrod.mavira.data.room.repository.GameRepository
+import me.gblrod.mavira.features.game.model.GameResult
 import me.gblrod.mavira.features.game.model.MemoryCard
 import me.gblrod.mavira.features.game.model.createDeck
 import me.gblrod.mavira.features.game.state.GameUiState
@@ -18,7 +20,9 @@ import javax.inject.Inject
 import kotlin.time.Duration.Companion.milliseconds
 
 @HiltViewModel
-class GameViewModel @Inject constructor() : ViewModel() {
+class GameViewModel @Inject constructor(
+    private val gameRepository: GameRepository
+) : ViewModel() {
     private val _uiState = MutableStateFlow(GameUiState())
     val uiState = _uiState.asStateFlow()
 
@@ -108,6 +112,7 @@ class GameViewModel @Inject constructor() : ViewModel() {
 
                 if (_uiState.value.pairsFound == _uiState.value.pairsTotal) {
                     stopTimer()
+                    saveGameResult()
                 }
             } else {
                 delay(duration = 1_000.milliseconds)
@@ -127,6 +132,20 @@ class GameViewModel @Inject constructor() : ViewModel() {
                     )
                 }
             }
+        }
+    }
+
+    private fun saveGameResult() {
+        val state = _uiState.value
+
+        viewModelScope.launch {
+            gameRepository.saveResult(
+                GameResult(
+                    moves = state.moveCount,
+                    time = state.timer,
+                    playedAt = System.currentTimeMillis()
+                )
+            )
         }
     }
 
