@@ -9,6 +9,7 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.unit.dp
 import me.gblrod.mavira.R
+import me.gblrod.mavira.shared.components.KeyValueRow
 import me.gblrod.mavira.shared.components.SelectionAlertDialog
 import me.gblrod.mavira.shared.extension.toTimerFormat
 
@@ -38,17 +39,17 @@ fun GameRestartDialog(
 
                 HorizontalDivider(thickness = 1.dp)
 
-                GameProgressRow(
+                KeyValueRow(
                     label = stringResource(id = R.string.dialog_restart_game_pairs),
                     value = "$pairsFound / $pairsTotal"
                 )
 
-                GameProgressRow(
+                KeyValueRow(
                     label = stringResource(id = R.string.dialog_restart_game_moves),
                     value = "$moveCount"
                 )
 
-                GameProgressRow(
+                KeyValueRow(
                     label = stringResource(id = R.string.dialog_restart_game_play_time),
                     value = playTime.toTimerFormat()
                 )

@@ -23,6 +23,12 @@ fun NavDestination?.topBarConfig(): TopBarConfig? {
             )
         }
 
+        this?.hasRoute<Route.Stats>() == true -> {
+            TopBarConfig(
+                title = R.string.route_statistics
+            )
+        }
+
         else -> null
     }
 }

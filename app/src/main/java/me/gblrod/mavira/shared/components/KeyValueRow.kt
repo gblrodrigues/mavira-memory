@@ -1,4 +1,4 @@
-package me.gblrod.mavira.features.game.components
+package me.gblrod.mavira.shared.components
 
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Row
@@ -10,7 +10,7 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.text.font.FontWeight
 
 @Composable
-fun GameProgressRow(
+fun KeyValueRow(
     label: String,
     value: String
 ) {

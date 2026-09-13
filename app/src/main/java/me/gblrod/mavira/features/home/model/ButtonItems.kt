@@ -13,6 +13,6 @@ enum class ButtonItems(
     val available: Boolean = true
 ) {
     PLAY(label = R.string.button_play, icon = Icons.Default.PlayArrow),
-    STATS(label = R.string.button_stats, icon = Icons.Default.MilitaryTech, available = false),
+    STATS(label = R.string.button_stats, icon = Icons.Default.MilitaryTech),
     CONFIG(label = R.string.button_configs, icon = Icons.Default.Settings, available = false)
 }
