@@ -56,4 +56,29 @@
     <string name="dialog_restart_game_confirm">Restart</string>
     <string name="dialog_restart_game_cancel">Cancel</string>
 
+    <!-- AlertDialog -->
+    <string name="dialog_action_confirm">Confirm</string>
+    <string name="dialog_action_dismiss">Cancel</string>
+    
+    <!-- SettingsScreen -->
+    <string name="settings_preferences_label">PREFERENCES</string>
+    <string name="settings_preferences_description">Configure your game preferences.</string>
+    <string name="settings_appearance_label">APPEARANCE</string>
+    <string name="settings_haptics_label">HAPTICS</string>
+    <string name="settings_vibration_label">Vibration</string>
+    <string name="settings_vibration_description">Haptic feedback during the game</string>
+    <string name="settings_theme_label">Theme</string>
+    <string name="settings_language_label">Language</string>
+
+    <!-- Language -->
+    <string name="language_dialog_title">Choose a language</string>
+    <string name="language_english_label">English (United States)</string>
+    <string name="language_portuguese_br_label">Portuguese (Brazil)</string>
+    <string name="language_espanhol_label">Español (España)</string>
+
+    <!-- Theme -->
+    <string name="theme_dialog_title">Choose a theme</string>
+    <string name="theme_darkmode">Dark</string>
+    <string name="theme_lightmode">Light</string>
+    <string name="theme_system">System</string>
 </resources>

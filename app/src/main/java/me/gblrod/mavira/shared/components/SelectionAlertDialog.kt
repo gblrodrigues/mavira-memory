@@ -45,7 +45,7 @@ fun SelectionAlertDialog(
             ) {
                 Text(
                     text = confirmText,
-                    color = MaterialTheme.colorScheme.inverseSurface
+                    color = MaterialTheme.colorScheme.onSurface
                 )
             }
         },

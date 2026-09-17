@@ -6,12 +6,19 @@ import androidx.lifecycle.viewModelScope
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.Job
 import kotlinx.coroutines.delay
+import kotlinx.coroutines.flow.MutableSharedFlow
 import kotlinx.coroutines.flow.MutableStateFlow
+import kotlinx.coroutines.flow.SharingStarted
+import kotlinx.coroutines.flow.asSharedFlow
 import kotlinx.coroutines.flow.asStateFlow
+import kotlinx.coroutines.flow.map
+import kotlinx.coroutines.flow.stateIn
 import kotlinx.coroutines.flow.update
 import kotlinx.coroutines.isActive
 import kotlinx.coroutines.launch
+import me.gblrod.mavira.data.preferences.SettingsRepository
 import me.gblrod.mavira.data.room.repository.GameRepository
+import me.gblrod.mavira.features.game.model.GameEffect
 import me.gblrod.mavira.features.game.model.GameResult
 import me.gblrod.mavira.features.game.model.MemoryCard
 import me.gblrod.mavira.features.game.model.createDeck
@@ -21,14 +28,28 @@ import kotlin.time.Duration.Companion.milliseconds
 
 @HiltViewModel
 class GameViewModel @Inject constructor(
-    private val gameRepository: GameRepository
+    private val gameRepository: GameRepository,
+    settingsRepository: SettingsRepository
 ) : ViewModel() {
     private val _uiState = MutableStateFlow(GameUiState())
     val uiState = _uiState.asStateFlow()
 
+    private val _effects = MutableSharedFlow<GameEffect>()
+    val effects = _effects.asSharedFlow()
+
     private var gameStartedAt: Long? = null
     private var timerJob: Job? = null
     private var checkPairJob: Job? = null
+
+    private val vibrationEnabled = settingsRepository.settings
+        .map { it.vibrationEnabled }
+        .stateIn(
+            scope = viewModelScope,
+            started = SharingStarted.WhileSubscribed(stopTimeoutMillis = 5_000),
+            initialValue = true
+        )
+
+    val isVibrationEnabled = vibrationEnabled
 
     fun onCardClick(selectedCard: MemoryCard) {
         val currentState = _uiState.value
@@ -91,45 +112,51 @@ class GameViewModel @Inject constructor(
         }
 
         checkPairJob = viewModelScope.launch {
-            if (firstCard.item == secondCard.item) {
+            when {
+                firstCard.item == secondCard.item -> {
+                    _uiState.update { state ->
+                        val newPairsFound = state.pairsFound + 1
+                        state.copy(
+                            cards = state.cards.map { card ->
+                                if (card.id == firstCard.id || card.id == secondCard.id) {
+                                    card.copy(
+                                        isMatched = true
+                                    )
+                                } else {
+                                    card
+                                }
+                            },
+                            pairsFound = newPairsFound,
+                            isCheckingPair = false
+                        )
+                    }
 
-                _uiState.update { state ->
-                    val newPairsFound = state.pairsFound + 1
-                    state.copy(
-                        cards = state.cards.map { card ->
-                            if (card.id == firstCard.id || card.id == secondCard.id) {
-                                card.copy(
-                                    isMatched = true
-                                )
-                            } else {
-                                card
-                            }
-                        },
-                        pairsFound = newPairsFound,
-                        isCheckingPair = false
-                    )
+                    if (_uiState.value.pairsFound == _uiState.value.pairsTotal) {
+                        _effects.emit(value = GameEffect.GameCompleted)
+                        stopTimer()
+                        saveGameResult()
+                    } else {
+                        _effects.emit(value = GameEffect.PairMatched)
+                    }
                 }
 
-                if (_uiState.value.pairsFound == _uiState.value.pairsTotal) {
-                    stopTimer()
-                    saveGameResult()
-                }
-            } else {
-                delay(duration = 1_000.milliseconds)
+                else -> {
+                    delay(duration = 1_000.milliseconds)
 
-                _uiState.update { state ->
-                    state.copy(
-                        cards = state.cards.map { card ->
-                            if (card.id == firstCard.id || card.id == secondCard.id) {
-                                card.copy(
-                                    isRevealed = false
-                                )
-                            } else {
-                                card
-                            }
-                        },
-                        isCheckingPair = false
-                    )
+                    _uiState.update { state ->
+                        state.copy(
+                            cards = state.cards.map { card ->
+                                if (card.id == firstCard.id || card.id == secondCard.id) {
+                                    card.copy(
+                                        isRevealed = false
+                                    )
+                                } else {
+                                    card
+                                }
+                            },
+                            isCheckingPair = false
+                        )
+                    }
                 }
             }
         }

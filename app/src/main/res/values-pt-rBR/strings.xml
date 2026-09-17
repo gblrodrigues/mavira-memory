@@ -42,6 +42,10 @@
     <string name="statistics_plays">Jogadas</string>
     <string name="statistics_timer">Tempo</string>
 
+    <!-- AlertDialog -->
+    <string name="dialog_action_confirm">Confirmar</string>
+    <string name="dialog_action_dismiss">Cancelar</string>
+
     <!-- Dialog -->
     <string name="dialog_title">Parabéns!</string>
     <string name="dialog_message">Você encontrou todos os pares! %1$d / %2$d</string>
@@ -55,4 +59,26 @@
     <string name="dialog_restart_game_play_time">Tempo jogado</string>
     <string name="dialog_restart_game_confirm">Reiniciar</string>
     <string name="dialog_restart_game_cancel">Cancelar</string>
+
+    <!-- SettingsScreen -->
+    <string name="settings_preferences_label">PREFERÊNCIAS</string>
+    <string name="settings_preferences_description">Configure as preferências do seu jogo.</string>
+    <string name="settings_appearance_label">APARÊNCIA</string>
+    <string name="settings_haptics_label">HÁPTICO</string>
+    <string name="settings_vibration_label">Vibração</string>
+    <string name="settings_vibration_description">Feedback tátil durante a partida</string>
+    <string name="settings_theme_label">Tema</string>
+    <string name="settings_language_label">Idioma</string>
+
+    <!-- Language -->
+    <string name="language_dialog_title">Escolha um idioma</string>
+    <string name="language_english_label">Inglês (Estados Unidos)</string>
+    <string name="language_portuguese_br_label">Português (Brasil)</string>
+    <string name="language_espanhol_label">Espanhol (Espanha)</string>
+
+    <!-- Theme -->
+    <string name="theme_dialog_title">Escolha um tema</string>
+    <string name="theme_darkmode">Escuro</string>
+    <string name="theme_lightmode">Claro</string>
+    <string name="theme_system">Sistema</string>
 </resources>

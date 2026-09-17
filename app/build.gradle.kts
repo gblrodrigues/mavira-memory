@@ -58,8 +58,14 @@ dependencies {
     implementation(libs.room.ktx)
     ksp(libs.room.compiler)
 
+    // DataStore
+    implementation(libs.androidx.datastore.preferences)
+
     // Navigation
     implementation(libs.androidx.navigation.compose)
+
+    // SplashScreen
+    implementation(libs.androidx.core.splashscreen)
 
     // Kotlin Serialization
     implementation(libs.kotlinx.serialization.json)
