@@ -17,36 +17,68 @@ A modern memory matching game built with Kotlin and Jetpack Compose.
 * Game completion results
 * Statistics and recent games history
 * Persistent game history with Room
+* Theme selection (System, Dark, Light)
+* Language selection (English, Spanish, Portuguese)
+* Configurable haptic feedback
+* Persistent user preferences with DataStore
 
 ## Preview
-https://github.com/user-attachments/assets/d6437a66-f13c-4b84-bdf2-f05e9d7f1ee7
+### Screenshots
+<table>
+  <tr>
+    <td align="center">
+      <img src="https://github.com/user-attachments/assets/97cedfa6-7d6b-40ec-b257-34f5b300b6dd" width="250" alt="Home Screen"/>
+    </td>
+    <td align="center">
+      <img src="https://github.com/user-attachments/assets/e54ecbb7-8116-42d5-8fd0-75096e82d010" width="250" alt="Gameplay"/>
+    </td>
+    <td align="center">
+      <img src="https://github.com/user-attachments/assets/75ce95ed-9fb9-4e07-8218-b788bdf4e998" width="250" alt="Statistics Screen"/>
+    </td>
+    <td align="center">
+      <img src="https://github.com/user-attachments/assets/31099bc8-3d7a-4f4b-8957-9dab6384bfcf" width="250" alt="Settings Screen"/>
+    </td>
+  </tr>
+  <tr>
+    <td align="center"><b>Home Screen</b></td>
+    <td align="center"><b>Gameplay</b></td>
+    <td align="center"><b>Statistics Screen</b></td>
+    <td align="center"><b>Settings Screen</b></td>
+  </tr>
+</table>
+
+### Demo
+https://github.com/user-attachments/assets/0a3accd3-7945-426e-a606-2237492664cf
 
 ## Architecture
 ```text
-┌─────────────────────┐        ┌────────────────────────┐
-│     GameScreen      │        │   StatisticsScreen     │
-└──────────┬──────────┘        └────────────┬───────────┘
-           │                                │
-           ▼                                ▼
-┌─────────────────────┐        ┌────────────────────────┐
-│   GameViewModel     │        │ StatisticsViewModel    │
-└──────────┬──────────┘        └────────────┬───────────┘
-           │                                │
-           └──────────────┬─────────────────┘
-                          ▼
-                ┌─────────────────────┐
-                │   GameRepository    │
-                └──────────┬──────────┘
-                           │
-                           ▼
-                ┌─────────────────────┐
-                │        Room         │
-                └─────────────────────┘
+                    ┌──────────────────┐
+                    │        UI        │
+                    │ Compose Screens  │
+                    └────────┬─────────┘
+                             │
+                             ▼
+                    ┌──────────────────┐
+                    │    ViewModels    │
+                    │ MVVM + StateFlow │
+                    └────────┬─────────┘
+                             │
+                             ▼
+                    ┌──────────────────┐
+                    │   Repositories   │
+                    └────────┬─────────┘
+                             │
+                  ┌──────────┴──────────┐
+                  ▼                     ▼
+             ┌─────────┐          ┌──────────┐
+             │  Room   │          │ DataStore│
+             └─────────┘          └──────────┘
 ```
 
 ## Biggest Challenge
-Adopting **Hilt** was initially challenging, as I had more experience with Koin. Learning how Hilt integrates dependency injection 
-into an Android application helped me better understand dependency management and build a more structured architecture.
+Adopting **Hilt** was initially challenging, as I had more experience with Koin. Learning how Hilt integrates dependency 
+injection into an Android application helped me better understand dependency management and build a more 
+structured architecture.
 
 > This experience also made Hilt my preferred dependency injection framework for future Android projects.
 
@@ -58,6 +90,7 @@ into an Android application helped me better understand dependency management an
 | Design System | [![Material 3](https://img.shields.io/badge/Material%203-6750A4?style=flat&logo=materialdesign&logoColor=white)](https://m3.material.io/) | Used to maintain visual consistency and modern UI practices
 | DI | [![Hilt](https://img.shields.io/badge/Hilt-34A853?style=flat&logo=android&logoColor=white)](https://dagger.dev/hilt/) | Dependency injection for dependency management
 | Persistence | [![Room](https://img.shields.io/badge/Room-4285F4?style=flat&logo=android&logoColor=white)](https://developer.android.com/training/data-storage/room) | Local persistence for completed game results and statistics
+| Preferences | [![DataStore](https://img.shields.io/badge/DataStore-3DDC84?style=flat&logo=android&logoColor=white)](https://developer.android.com/topic/libraries/architecture/datastore) | Persistent storage for user preferences such as theme, language, and vibration
 | Navigation | [![Navigation Compose](https://img.shields.io/badge/Navigation%20Compose-4285F4?style=flat&logo=android&logoColor=white)](https://developer.android.com/jetpack/compose/navigation) | Type-safe navigation between screens
 
 ## Contact

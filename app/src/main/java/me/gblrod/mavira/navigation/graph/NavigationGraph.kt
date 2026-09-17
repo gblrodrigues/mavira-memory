@@ -14,6 +14,8 @@ import androidx.navigation.compose.composable
 import me.gblrod.mavira.features.game.screen.GameScreen
 import me.gblrod.mavira.features.game.viewmodel.GameViewModel
 import me.gblrod.mavira.features.home.screen.HomeScreen
+import me.gblrod.mavira.features.settings.screen.SettingsScreen
+import me.gblrod.mavira.features.settings.viewmodel.SettingsViewModel
 import me.gblrod.mavira.features.statistics.screen.StatisticsScreen
 import me.gblrod.mavira.features.statistics.viewmodel.StatisticsViewModel
 import me.gblrod.mavira.navigation.routes.Route
@@ -66,6 +68,14 @@ fun NavigationGraph(
             StatisticsScreen(
                 statisticsViewModel = statisticsViewModel,
                 onNavigateGameScreen = { navHostController.navigate(Route.Game) }
+            )
+        }
+
+        composable<Route.Config> {
+            val settingsViewModel: SettingsViewModel = hiltViewModel()
+
+            SettingsScreen(
+                settingsViewModel = settingsViewModel
             )
         }
     }

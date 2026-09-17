@@ -15,6 +15,7 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import me.gblrod.mavira.features.game.components.GameBoard
+import me.gblrod.mavira.features.game.components.GameEffectsHandler
 import me.gblrod.mavira.features.game.components.GameRestartButton
 import me.gblrod.mavira.features.game.components.GameRestartDialog
 import me.gblrod.mavira.features.game.components.GameSectionHeader
@@ -27,9 +28,14 @@ fun GameScreen(
     onNavigateHome: () -> Unit
 ) {
     val uiState by gameViewModel.uiState.collectAsStateWithLifecycle()
+    val isVibrationEnabled by gameViewModel.isVibrationEnabled.collectAsStateWithLifecycle()
 
-    val showButtonRestart = uiState.isGameStarted
     var isRestartGameDialog by remember { mutableStateOf(false) }
+
+    GameEffectsHandler(
+        effects = gameViewModel.effects,
+        isVibrationEnabled = isVibrationEnabled
+    )
 
     Column(
         modifier = Modifier
@@ -55,7 +61,7 @@ fun GameScreen(
         GameRestartButton(
             modifier = Modifier.align(Alignment.CenterHorizontally),
             onClick = { isRestartGameDialog = true },
-            enabled = showButtonRestart
+            enabled = uiState.isGameStarted
         )
 
         if (isRestartGameDialog) {

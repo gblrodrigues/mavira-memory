@@ -14,5 +14,5 @@ enum class ButtonItems(
 ) {
     PLAY(label = R.string.button_play, icon = Icons.Default.PlayArrow),
     STATS(label = R.string.button_stats, icon = Icons.Default.MilitaryTech),
-    CONFIG(label = R.string.button_configs, icon = Icons.Default.Settings, available = false)
+    CONFIG(label = R.string.button_configs, icon = Icons.Default.Settings)
 }

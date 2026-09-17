@@ -12,17 +12,16 @@ import androidx.compose.material.icons.filled.QuestionMark
 import androidx.compose.material3.Card
 import androidx.compose.material3.CardDefaults
 import androidx.compose.material3.Icon
+import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.graphicsLayer
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import me.gblrod.mavira.features.game.model.MemoryCard
-import me.gblrod.mavira.ui.theme.LightBlue
 
 @Composable
 fun MemoryCardItem(
@@ -47,7 +46,11 @@ fun MemoryCardItem(
             ),
         shape = RoundedCornerShape(16.dp),
         colors = CardDefaults.cardColors(
-            containerColor = if (rotation <= 90f) LightBlue else Color.White
+            containerColor = if (card.isRevealed || card.isMatched) {
+                MaterialTheme.colorScheme.surface
+            } else {
+                MaterialTheme.colorScheme.primary
+            }
         )
     ) {
         Box(
