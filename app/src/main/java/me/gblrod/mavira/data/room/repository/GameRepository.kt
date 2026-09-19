@@ -23,4 +23,12 @@ class GameRepository @Inject constructor(
                 results.map(transform = GameResultEntity::toDomain)
             }
     }
+
+    fun observeRecentGames(limit: Int): Flow<List<GameResult>> {
+        return gameResultDao
+            .observeRecent(limit = limit)
+            .map { results ->
+                results.map(transform = GameResultEntity::toDomain)
+            }
+    }
 }

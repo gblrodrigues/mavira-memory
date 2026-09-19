@@ -33,7 +33,7 @@
     <string name="statistics_best_moves">Best Moves</string>
     <string name="statistics_average_time">Average Time</string>
     <string name="statistics_recent_game_label">Recent Games</string>
-    <string name="statistics_recent_game_description">Your latest completed games.</string>
+    <string name="statistics_recent_game_description">Your %1$d most recent completed games.</string>
     <string name="statistics_no_games_title">Complete your first game</string>
     <string name="statistics_no_games_description">to start building your history.</string>
     <string name="statistics_no_games_start">Play now</string>

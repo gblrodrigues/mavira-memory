@@ -33,7 +33,7 @@
     <string name="statistics_best_moves">Melhores jogadas</string>
     <string name="statistics_average_time">Tempo médio</string>
     <string name="statistics_recent_game_label">Jogos Recentes</string>
-    <string name="statistics_recent_game_description">Últimas partidas finalizadas.</string>
+    <string name="statistics_recent_game_description">Seus %1$d jogos concluídos mais recentes.</string>
     <string name="statistics_no_games_title">Complete sua primeira partida</string>
     <string name="statistics_no_games_description">para começar a construir seu histórico.</string>
     <string name="statistics_no_games_start">Jogar agora</string>

@@ -11,6 +11,7 @@ import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.unit.dp
 import me.gblrod.mavira.R
 import me.gblrod.mavira.features.game.model.GameResult
+import me.gblrod.mavira.features.statistics.config.StatisticsConfig.RECENT_GAMES_LIMIT
 import me.gblrod.mavira.features.statistics.util.toStatisticsDate
 import me.gblrod.mavira.features.statistics.util.toStatisticsTime
 import me.gblrod.mavira.shared.extension.toTimerFormat
@@ -22,7 +23,10 @@ fun LazyListScope.statisticsRecentGames(
     item {
         StatisticsSectionHeader(
             title = stringResource(id = R.string.statistics_recent_game_label),
-            description = stringResource(id = R.string.statistics_recent_game_description)
+            description = stringResource(
+                id = R.string.statistics_recent_game_description,
+                RECENT_GAMES_LIMIT
+            )
         )
 
         HorizontalDivider(
