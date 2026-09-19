@@ -14,9 +14,18 @@ interface GameResultDao {
     @Query(
         value = """
         SELECT * FROM game_results
-        ORDER BY playedAt DESC
+        ORDER BY playedAt DESC, id DESC
     """
     )
 
     fun observeAll(): Flow<List<GameResultEntity>>
+
+    @Query(
+        """
+        SELECT * FROM game_results
+        ORDER BY playedAt DESC, id DESC
+        LIMIT :limit
+        """
+    )
+    fun observeRecent(limit: Int): Flow<List<GameResultEntity>>
 }
