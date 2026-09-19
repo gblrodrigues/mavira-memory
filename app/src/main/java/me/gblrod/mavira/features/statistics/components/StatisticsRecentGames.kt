@@ -1,12 +1,11 @@
 package me.gblrod.mavira.features.statistics.components
 
-import androidx.compose.foundation.layout.Arrangement
-import androidx.compose.foundation.layout.fillMaxWidth
+import androidx.compose.foundation.layout.Spacer
+import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
-import androidx.compose.foundation.lazy.LazyColumn
+import androidx.compose.foundation.lazy.LazyListScope
 import androidx.compose.foundation.lazy.items
 import androidx.compose.material3.HorizontalDivider
-import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.unit.dp
@@ -16,44 +15,43 @@ import me.gblrod.mavira.features.statistics.util.toStatisticsDate
 import me.gblrod.mavira.features.statistics.util.toStatisticsTime
 import me.gblrod.mavira.shared.extension.toTimerFormat
 
-@Composable
-fun StatisticsRecentGames(
+fun LazyListScope.statisticsRecentGames(
     games: List<GameResult>,
     onNavigateGameScreen: () -> Unit
 ) {
-    StatisticsSectionHeader(
-        title = stringResource(id = R.string.statistics_recent_game_label),
-        description = stringResource(id = R.string.statistics_recent_game_description)
-    )
-
-    HorizontalDivider(
-        thickness = 1.dp,
-        modifier = Modifier.padding(vertical = 12.dp)
-    )
-
-    if (games.isEmpty()) {
-        StatisticsEmptyState(
-            onClick = { onNavigateGameScreen() }
+    item {
+        StatisticsSectionHeader(
+            title = stringResource(id = R.string.statistics_recent_game_label),
+            description = stringResource(id = R.string.statistics_recent_game_description)
         )
-    } else {
-        LazyColumn(
-            modifier = Modifier.fillMaxWidth(),
-            verticalArrangement = Arrangement.spacedBy(8.dp)
-        ) {
-            items(
-                items = games,
-                key = { game -> game.id }
-            ) { recentGame ->
-                StatisticsRecentGameRow(
-                    date = recentGame.playedAt.toStatisticsDate(),
-                    movesLabel = stringResource(id = R.string.statistics_plays),
-                    timeLabel = stringResource(id = R.string.statistics_timer),
-                    timePlayed = recentGame.playedAt.toStatisticsTime(),
-                    moves = recentGame.moves.toString(),
-                    time = recentGame.time.toTimerFormat()
-                )
-            }
-        }
+
+        HorizontalDivider(
+            thickness = 1.dp,
+            modifier = Modifier.padding(vertical = 12.dp)
+        )
     }
 
+    if (games.isEmpty()) {
+        item {
+            StatisticsEmptyState(
+                onClick = { onNavigateGameScreen() }
+            )
+        }
+    } else {
+        items(
+            items = games,
+            key = { game -> game.id }
+        ) { recentGame ->
+            Spacer(modifier = Modifier.height(8.dp))
+
+            StatisticsRecentGameRow(
+                date = recentGame.playedAt.toStatisticsDate(),
+                movesLabel = stringResource(id = R.string.statistics_plays),
+                timeLabel = stringResource(id = R.string.statistics_timer),
+                timePlayed = recentGame.playedAt.toStatisticsTime(),
+                moves = recentGame.moves.toString(),
+                time = recentGame.time.toTimerFormat()
+            )
+        }
+    }
 }
