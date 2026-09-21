@@ -5,12 +5,17 @@ import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.runtime.setValue
+import androidx.compose.ui.platform.LocalContext
+import androidx.compose.ui.res.stringResource
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
+import me.gblrod.mavira.R
+import me.gblrod.mavira.core.manager.ShareManager
 import me.gblrod.mavira.features.game.components.GameContent
 import me.gblrod.mavira.features.game.components.GameEffectsHandler
 import me.gblrod.mavira.features.game.components.GameRestartDialog
 import me.gblrod.mavira.features.game.components.ResultDialog
 import me.gblrod.mavira.features.game.viewmodel.GameViewModel
+import me.gblrod.mavira.shared.extension.toTimerFormat
 
 @Composable
 fun GameScreen(
@@ -21,6 +26,11 @@ fun GameScreen(
     val isVibrationEnabled by gameViewModel.isVibrationEnabled.collectAsStateWithLifecycle()
 
     var isRestartGameDialog by remember { mutableStateOf(false) }
+
+    val context = LocalContext.current
+    val shareManager = remember(context) {
+        ShareManager(context = context)
+    }
 
     GameEffectsHandler(
         effects = gameViewModel.effects,
@@ -53,12 +63,25 @@ fun GameScreen(
     }
 
     if (uiState.pairsFound == uiState.pairsTotal) {
+        val shareMessage = stringResource(
+            id = R.string.share_game_result,
+            uiState.timer.toTimerFormat(),
+            uiState.moveCount,
+            uiState.pairsFound,
+            uiState.pairsTotal
+        )
+
         ResultDialog(
-            pairFound = uiState.pairsFound,
-            pairTotal = uiState.pairsTotal,
+            pairsTotal = uiState.pairsTotal,
+            moveCount = uiState.moveCount,
             playTime = uiState.timer,
             onNavigateHome = { onNavigateHome() },
-            onRestartGame = { gameViewModel.restart() }
+            onRestartGame = { gameViewModel.restart() },
+            onShareResult = {
+                shareManager.shareText(
+                    text = shareMessage
+                )
+            }
         )
     }
 }

@@ -24,6 +24,7 @@
     <string name="game_movements_count">%1$d</string>
     <string name="game_pairs">Pairs found</string>
     <string name="game_pairs_count">%1$d / %2$d</string>
+    <string name="share_game_result">Mavira Memory 🧠\n\nGame completed!\n⏲️ Time: %1$s\n🔄 Moves: %2$d\n🃏 Pairs: %3$d/%4$d\n\nCan you do better? 😏</string>
 
     <!-- Statistics -->
     <string name="statistics_title">Statistics</string>
@@ -44,8 +45,6 @@
 
     <!-- Dialog -->
     <string name="dialog_title">Congratulations</string>
-    <string name="dialog_message">You find all pairs! %1$d / %2$d</string>
-    <string name="dialog_message_timer">Play time: %1$s</string>
     <string name="dialog_home">Home</string>
     <string name="dialog_play_again">Play Again</string>
     <string name="dialog_restart_game_title">Restart game?</string>
@@ -53,13 +52,14 @@
     <string name="dialog_restart_game_pairs">Pairs found</string>
     <string name="dialog_restart_game_moves">Moves</string>
     <string name="dialog_restart_game_play_time">Play time</string>
+    <string name="dialog_share_result">Share Result</string>
     <string name="dialog_restart_game_confirm">Restart</string>
     <string name="dialog_restart_game_cancel">Cancel</string>
 
     <!-- AlertDialog -->
     <string name="dialog_action_confirm">Confirm</string>
     <string name="dialog_action_dismiss">Cancel</string>
-    
+
     <!-- SettingsScreen -->
     <string name="settings_preferences_label">PREFERENCES</string>
     <string name="settings_preferences_description">Configure your game preferences.</string>
