@@ -15,6 +15,7 @@ A modern memory matching game built with Kotlin and Jetpack Compose.
 * Game timer
 * Restart with confirmation
 * Game completion results
+* Share completed game results
 * Statistics and recent games history
 * Persistent game history with Room
 * Theme selection (System, Dark, Light)
@@ -35,20 +36,35 @@ A modern memory matching game built with Kotlin and Jetpack Compose.
     <td align="center">
       <img src="https://github.com/user-attachments/assets/75ce95ed-9fb9-4e07-8218-b788bdf4e998" width="250" alt="Statistics Screen"/>
     </td>
-    <td align="center">
-      <img src="https://github.com/user-attachments/assets/31099bc8-3d7a-4f4b-8957-9dab6384bfcf" width="250" alt="Settings Screen"/>
-    </td>
   </tr>
   <tr>
     <td align="center"><b>Home Screen</b></td>
     <td align="center"><b>Gameplay</b></td>
     <td align="center"><b>Statistics Screen</b></td>
+  </tr>
+</table>
+
+<table>
+  <tr>
+    <td align="center">
+      <img src="https://github.com/user-attachments/assets/31099bc8-3d7a-4f4b-8957-9dab6384bfcf" width="250" alt="Settings Screen"/>
+    </td>
+    <td align="center">
+      <img src="https://github.com/user-attachments/assets/31902031-a239-4c8d-94a8-a1b9193db875" width="250" alt="Game Result"/>
+    </td>
+    <td align="center">
+      <img src="https://github.com/user-attachments/assets/4bc34cae-dd65-4757-8dbd-27ba1fa9f4c6" width="250" alt="Share Sheet"/>
+    </td>
+  </tr>
+  <tr>
     <td align="center"><b>Settings Screen</b></td>
+    <td align="center"><b>Game Result</b></td>
+    <td align="center"><b>Share Sheet</b></td>
   </tr>
 </table>
 
 ### Demo
-https://github.com/user-attachments/assets/0a3accd3-7945-426e-a606-2237492664cf
+https://github.com/user-attachments/assets/15d49997-7bf3-438e-812a-7f45a309ba23
 
 ## Architecture
 ```text

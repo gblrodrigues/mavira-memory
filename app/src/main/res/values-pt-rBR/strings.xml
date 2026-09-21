@@ -24,6 +24,7 @@
     <string name="game_movements_count">%1$d</string>
     <string name="game_pairs">Pares encontrados</string>
     <string name="game_pairs_count">%1$d / %2$d</string>
+    <string name="share_game_result">Mavira Memory 🧠\n\nJogo concluído!\n⏲️ Tempo: %1$s\n🔄 Movimentos: %2$d\n🃏 Pares: %3$d/%4$d\n\nConsegue fazer melhor? 😏</string>
 
     <!-- Statistics -->
     <string name="statistics_title">Resumo</string>
@@ -48,8 +49,6 @@
 
     <!-- Dialog -->
     <string name="dialog_title">Parabéns!</string>
-    <string name="dialog_message">Você encontrou todos os pares! %1$d / %2$d</string>
-    <string name="dialog_message_timer">Tempo jogado: %1$s</string>
     <string name="dialog_home">Home</string>
     <string name="dialog_play_again">Jogar novamente</string>
     <string name="dialog_restart_game_title">Reiniciar a partida?</string>
@@ -57,6 +56,7 @@
     <string name="dialog_restart_game_pairs">Pares encontrados</string>
     <string name="dialog_restart_game_moves">Movimentos</string>
     <string name="dialog_restart_game_play_time">Tempo jogado</string>
+    <string name="dialog_share_result">Compartilhar resultado</string>
     <string name="dialog_restart_game_confirm">Reiniciar</string>
     <string name="dialog_restart_game_cancel">Cancelar</string>
 

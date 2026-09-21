@@ -14,6 +14,7 @@ val Pink40 = Color(0xFF7D5260)
 val LightBlue = Color(0xFF039EEF)
 val LightGreen = Color(0xFF43E07A)
 val LightRed = Color(0xFFF63D3D)
+val EmeraldGreen = Color(0xFF10B981)
 
 // Buttons
 val ButtonContainerDialog = Color(0xFF61C4B5)
