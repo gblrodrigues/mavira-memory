@@ -7,7 +7,7 @@ import me.gblrod.mavira.data.room.local.entity.GameResultEntity
 
 @Database(
     entities = [GameResultEntity::class],
-    version = 1,
+    version = 2,
     exportSchema = false
 )
 

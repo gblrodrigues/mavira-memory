@@ -16,6 +16,7 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
+import me.gblrod.mavira.features.game.difficulty.model.DifficultyOptions
 import me.gblrod.mavira.features.game.model.MemoryCard
 
 @Composable
@@ -24,7 +25,7 @@ fun GameContent(
     pairsFound: Int,
     pairsTotal: Int,
     isGameStarted: Boolean,
-    gridSize: Int,
+    difficulty: (DifficultyOptions),
     cards: List<MemoryCard>,
     onCardClick: (MemoryCard) -> Unit,
     onRestartClick: () -> Unit
@@ -68,7 +69,7 @@ fun GameContent(
                         modifier = Modifier
                             .fillMaxHeight()
                             .aspectRatio(1f),
-                        gridSize = gridSize,
+                        difficulty = difficulty,
                         cards = cards,
                         onCardClick = { onCardClick(it) }
                     )
@@ -89,7 +90,7 @@ fun GameContent(
                 Spacer(modifier = Modifier.height(16.dp))
 
                 GameBoard(
-                    gridSize = gridSize,
+                    difficulty = difficulty,
                     cards = cards,
                     onCardClick = { onCardClick(it) }
                 )

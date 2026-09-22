@@ -1,5 +1,6 @@
 # Mavira
-A modern memory matching game built with Kotlin and Jetpack Compose.
+Mavira is an Android memory matching game built with Kotlin and Jetpack Compose, featuring multiple difficulty levels, persistent statistics and 
+preferences, responsive layouts, configurable haptic feedback, and native game-result sharing.
 
 - [Features](#features)
 - [Preview](#preview)
@@ -9,7 +10,7 @@ A modern memory matching game built with Kotlin and Jetpack Compose.
 - [Contact](#contact)
 
 ## Features
-* 4×4 memory matching game
+* Memory matching game with multiple difficulty levels
 * Match and mismatch card interactions
 * Move counter
 * Game timer
@@ -31,15 +32,15 @@ A modern memory matching game built with Kotlin and Jetpack Compose.
       <img src="https://github.com/user-attachments/assets/97cedfa6-7d6b-40ec-b257-34f5b300b6dd" width="250" alt="Home Screen"/>
     </td>
     <td align="center">
-      <img src="https://github.com/user-attachments/assets/e54ecbb7-8116-42d5-8fd0-75096e82d010" width="250" alt="Gameplay"/>
+      <img src="https://github.com/user-attachments/assets/fe7a0ba3-eb79-4d97-b372-de3d431ba1ee" width="250" alt="Gameplay (Medium)"/>
     </td>
     <td align="center">
-      <img src="https://github.com/user-attachments/assets/75ce95ed-9fb9-4e07-8218-b788bdf4e998" width="250" alt="Statistics Screen"/>
+      <img src="https://github.com/user-attachments/assets/c1d2f2b4-18b3-4a03-8a93-e69c91b14444" width="250" alt="Statistics Screen"/>
     </td>
   </tr>
   <tr>
     <td align="center"><b>Home Screen</b></td>
-    <td align="center"><b>Gameplay</b></td>
+    <td align="center"><b>Gameplay (Medium)</b></td>
     <td align="center"><b>Statistics Screen</b></td>
   </tr>
 </table>
@@ -47,13 +48,13 @@ A modern memory matching game built with Kotlin and Jetpack Compose.
 <table>
   <tr>
     <td align="center">
-      <img src="https://github.com/user-attachments/assets/31099bc8-3d7a-4f4b-8957-9dab6384bfcf" width="250" alt="Settings Screen"/>
+      <img src="https://github.com/user-attachments/assets/3d611b85-4c3a-453d-8221-d2ec0471c5d5" width="250" alt="Settings Screen"/>
     </td>
     <td align="center">
-      <img src="https://github.com/user-attachments/assets/31902031-a239-4c8d-94a8-a1b9193db875" width="250" alt="Game Result"/>
+      <img src="https://github.com/user-attachments/assets/9a9c338e-07f0-4083-9d03-e1d1b42c71f1" width="250" alt="Game Result"/>
     </td>
     <td align="center">
-      <img src="https://github.com/user-attachments/assets/4bc34cae-dd65-4757-8dbd-27ba1fa9f4c6" width="250" alt="Share Sheet"/>
+      <img src="https://github.com/user-attachments/assets/f9d3d5ee-ed31-42fa-9800-1db167fa3a6a" width="250" alt="Share Sheet"/>
     </td>
   </tr>
   <tr>
@@ -64,7 +65,7 @@ A modern memory matching game built with Kotlin and Jetpack Compose.
 </table>
 
 ### Demo
-https://github.com/user-attachments/assets/15d49997-7bf3-438e-812a-7f45a309ba23
+https://github.com/user-attachments/assets/ef005c32-30d5-4e20-9952-d38f35e0a019
 
 ## Architecture
 ```text

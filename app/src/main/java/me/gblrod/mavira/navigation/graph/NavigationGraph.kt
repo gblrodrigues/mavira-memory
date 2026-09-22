@@ -11,6 +11,7 @@ import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import androidx.navigation.NavHostController
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
+import me.gblrod.mavira.features.game.difficulty.screen.DifficultyScreen
 import me.gblrod.mavira.features.game.screen.GameScreen
 import me.gblrod.mavira.features.game.viewmodel.GameViewModel
 import me.gblrod.mavira.features.home.screen.HomeScreen
@@ -75,7 +76,20 @@ fun NavigationGraph(
             val settingsViewModel: SettingsViewModel = hiltViewModel()
 
             SettingsScreen(
-                settingsViewModel = settingsViewModel
+                settingsViewModel = settingsViewModel,
+                onNavigateDifficulty = { navHostController.navigate(Route.Difficulty) }
+            )
+        }
+
+        composable<Route.Difficulty> {
+            val settingsViewModel: SettingsViewModel = hiltViewModel()
+            val uiState by settingsViewModel.uiState.collectAsStateWithLifecycle()
+            DifficultyScreen(
+                currentDifficulty = uiState.difficultyOptions,
+                onSaveDifficulty = { difficulty ->
+                    settingsViewModel.setDifficulty(difficulty = difficulty)
+                    navHostController.popBackStack()
+                }
             )
         }
     }

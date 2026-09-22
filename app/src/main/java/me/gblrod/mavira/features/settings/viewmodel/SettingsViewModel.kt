@@ -7,6 +7,7 @@ import kotlinx.coroutines.flow.SharingStarted
 import kotlinx.coroutines.flow.stateIn
 import kotlinx.coroutines.launch
 import me.gblrod.mavira.data.preferences.SettingsRepository
+import me.gblrod.mavira.features.game.difficulty.model.DifficultyOptions
 import me.gblrod.mavira.features.settings.model.LanguageOptions
 import me.gblrod.mavira.features.settings.model.ThemeOptions
 import me.gblrod.mavira.features.settings.state.SettingsUiState
@@ -38,6 +39,12 @@ class SettingsViewModel @Inject constructor(
     fun setVibration(enabled: Boolean) {
         viewModelScope.launch {
             settingsRepository.setVibration(enabled)
+        }
+    }
+
+    fun setDifficulty(difficulty: DifficultyOptions) {
+        viewModelScope.launch {
+            settingsRepository.setDifficulty(difficulty)
         }
     }
 }

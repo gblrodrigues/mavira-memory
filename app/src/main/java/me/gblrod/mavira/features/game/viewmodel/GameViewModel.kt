@@ -11,6 +11,7 @@ import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.SharingStarted
 import kotlinx.coroutines.flow.asSharedFlow
 import kotlinx.coroutines.flow.asStateFlow
+import kotlinx.coroutines.flow.first
 import kotlinx.coroutines.flow.map
 import kotlinx.coroutines.flow.stateIn
 import kotlinx.coroutines.flow.update
@@ -50,6 +51,19 @@ class GameViewModel @Inject constructor(
         )
 
     val isVibrationEnabled = vibrationEnabled
+
+    init {
+        viewModelScope.launch {
+            val difficulty = settingsRepository.settings.first().difficultyOptions
+
+            _uiState.update {
+                it.copy(
+                    difficulty = difficulty,
+                    cards = createDeck(difficulty = difficulty)
+                )
+            }
+        }
+    }
 
     fun onCardClick(selectedCard: MemoryCard) {
         val currentState = _uiState.value
@@ -113,7 +127,7 @@ class GameViewModel @Inject constructor(
 
         checkPairJob = viewModelScope.launch {
             when {
-                firstCard.item == secondCard.item -> {
+                firstCard.symbol == secondCard.symbol -> {
                     _uiState.update { state ->
                         val newPairsFound = state.pairsFound + 1
                         state.copy(
@@ -131,7 +145,7 @@ class GameViewModel @Inject constructor(
                         )
                     }
 
-                    if (_uiState.value.pairsFound == _uiState.value.pairsTotal) {
+                    if (_uiState.value.pairsFound == _uiState.value.difficulty.pairs) {
                         _effects.emit(value = GameEffect.GameCompleted)
                         stopTimer()
                         saveGameResult()
@@ -170,7 +184,8 @@ class GameViewModel @Inject constructor(
                 GameResult(
                     moves = state.moveCount,
                     time = state.timer,
-                    playedAt = System.currentTimeMillis()
+                    playedAt = System.currentTimeMillis(),
+                    difficulty = state.difficulty
                 )
             )
         }
@@ -222,8 +237,11 @@ class GameViewModel @Inject constructor(
 
         gameStartedAt = null
 
+        val difficulty = _uiState.value.difficulty
+
         _uiState.value = GameUiState(
-            cards = createDeck()
+            difficulty = difficulty,
+            cards = createDeck(difficulty = difficulty)
         )
     }
 }

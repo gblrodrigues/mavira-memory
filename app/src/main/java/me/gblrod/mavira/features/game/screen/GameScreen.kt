@@ -40,9 +40,9 @@ fun GameScreen(
     GameContent(
         moveCount = uiState.moveCount,
         pairsFound = uiState.pairsFound,
-        pairsTotal = uiState.pairsTotal,
+        pairsTotal = uiState.difficulty.pairs,
         isGameStarted = uiState.isGameStarted,
-        gridSize = uiState.gridSize,
+        difficulty = uiState.difficulty,
         cards = uiState.cards,
         onRestartClick = { isRestartGameDialog = true },
         onCardClick = { gameViewModel.onCardClick(selectedCard = it) }
@@ -58,21 +58,24 @@ fun GameScreen(
             playTime = uiState.timer,
             moveCount = uiState.moveCount,
             pairsFound = uiState.pairsFound,
-            pairsTotal = uiState.pairsTotal
+            pairsTotal = uiState.difficulty.pairs
         )
     }
 
-    if (uiState.pairsFound == uiState.pairsTotal) {
+    if (uiState.pairsFound == uiState.difficulty.pairs) {
+        val difficultyLabel = stringResource(id = uiState.difficulty.label)
+
         val shareMessage = stringResource(
             id = R.string.share_game_result,
             uiState.timer.toTimerFormat(),
+            difficultyLabel,
             uiState.moveCount,
             uiState.pairsFound,
-            uiState.pairsTotal
+            uiState.difficulty.pairs
         )
 
         ResultDialog(
-            pairsTotal = uiState.pairsTotal,
+            pairsTotal = uiState.difficulty.pairs,
             moveCount = uiState.moveCount,
             playTime = uiState.timer,
             onNavigateHome = { onNavigateHome() },
