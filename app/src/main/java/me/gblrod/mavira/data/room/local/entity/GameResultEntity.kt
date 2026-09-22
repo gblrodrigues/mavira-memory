@@ -2,6 +2,7 @@ package me.gblrod.mavira.data.room.local.entity
 
 import androidx.room.Entity
 import androidx.room.PrimaryKey
+import me.gblrod.mavira.features.game.difficulty.model.DifficultyOptions
 
 @Entity(tableName = "game_results")
 data class GameResultEntity(
@@ -9,5 +10,6 @@ data class GameResultEntity(
     val id: Long = 0,
     val moves: Int,
     val time: Long,
-    val playedAt: Long
+    val playedAt: Long,
+    val difficulty: DifficultyOptions
 )

@@ -13,8 +13,10 @@ val Pink40 = Color(0xFF7D5260)
 // Actions
 val LightBlue = Color(0xFF039EEF)
 val LightGreen = Color(0xFF43E07A)
-val LightRed = Color(0xFFF63D3D)
+val LightRed = Color(0xFFF54444)
 val EmeraldGreen = Color(0xFF10B981)
+val Yellow = Color(0xFFF5DA31)
+val PurpleStyle = Color(0xFFBE5FFF)
 
 // Buttons
 val ButtonContainerDialog = Color(0xFF61C4B5)

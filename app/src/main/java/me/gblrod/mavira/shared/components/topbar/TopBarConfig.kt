@@ -35,6 +35,12 @@ fun NavDestination?.topBarConfig(): TopBarConfig? {
             )
         }
 
+        this?.hasRoute<Route.Difficulty>() == true -> {
+            TopBarConfig(
+                title = R.string.route_difficulty
+            )
+        }
+
         else -> null
     }
 }

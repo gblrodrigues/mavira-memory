@@ -8,6 +8,7 @@ import androidx.compose.foundation.lazy.grid.items
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
+import me.gblrod.mavira.features.game.difficulty.model.DifficultyOptions
 import me.gblrod.mavira.features.game.model.MemoryCard
 
 @Composable
@@ -15,11 +16,11 @@ fun GameBoard(
     modifier: Modifier = Modifier,
     cards: List<MemoryCard>,
     onCardClick: (MemoryCard) -> Unit,
-    gridSize: Int
+    difficulty: (DifficultyOptions)
 ) {
     LazyVerticalGrid(
         modifier = modifier,
-        columns = GridCells.Fixed(count = gridSize),
+        columns = GridCells.Fixed(count = difficulty.columns),
         horizontalArrangement = Arrangement.spacedBy(12.dp),
         verticalArrangement = Arrangement.spacedBy(12.dp),
         contentPadding = PaddingValues(horizontal = 16.dp)

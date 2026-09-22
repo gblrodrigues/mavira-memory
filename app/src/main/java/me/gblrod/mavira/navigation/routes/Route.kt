@@ -15,4 +15,7 @@ sealed interface Route {
 
     @Serializable
     data object Config : Route
+
+    @Serializable
+    data object Difficulty : Route
 }

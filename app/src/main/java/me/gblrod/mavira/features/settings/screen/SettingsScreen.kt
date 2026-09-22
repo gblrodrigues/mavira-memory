@@ -17,7 +17,7 @@ import androidx.compose.ui.unit.dp
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import me.gblrod.mavira.R
 import me.gblrod.mavira.features.settings.components.AppearanceSettingsCard
-import me.gblrod.mavira.features.settings.components.HapticsSettingsCard
+import me.gblrod.mavira.features.settings.components.GameplaySettingsCard
 import me.gblrod.mavira.features.settings.components.SettingsHeader
 import me.gblrod.mavira.features.settings.components.SettingsLanguageDialog
 import me.gblrod.mavira.features.settings.components.SettingsThemeDialog
@@ -25,7 +25,8 @@ import me.gblrod.mavira.features.settings.viewmodel.SettingsViewModel
 
 @Composable
 fun SettingsScreen(
-    settingsViewModel: SettingsViewModel
+    settingsViewModel: SettingsViewModel,
+    onNavigateDifficulty: () -> Unit
 ) {
     val uiState by settingsViewModel.uiState.collectAsStateWithLifecycle()
 
@@ -56,9 +57,11 @@ fun SettingsScreen(
         }
 
         item {
-            HapticsSettingsCard(
+            GameplaySettingsCard(
                 vibrationEnabled = uiState.vibrationEnabled,
-                onVibrationChanged = { settingsViewModel.setVibration(enabled = it) }
+                onVibrationChanged = { settingsViewModel.setVibration(enabled = it) },
+                difficulty = uiState.difficultyOptions,
+                onDifficultyClick = { onNavigateDifficulty() }
             )
         }
     }

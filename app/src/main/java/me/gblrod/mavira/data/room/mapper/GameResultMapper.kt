@@ -8,7 +8,8 @@ fun GameResultEntity.toDomain(): GameResult {
         id = id,
         moves = moves,
         time = time,
-        playedAt = playedAt
+        playedAt = playedAt,
+        difficulty = difficulty
     )
 }
 
@@ -17,6 +18,7 @@ fun GameResult.toEntity(): GameResultEntity {
         id = id,
         moves = moves,
         time = time,
-        playedAt = playedAt
+        playedAt = playedAt,
+        difficulty = difficulty
     )
 }

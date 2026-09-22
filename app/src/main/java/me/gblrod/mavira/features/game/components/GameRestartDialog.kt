@@ -46,7 +46,7 @@ fun GameRestartDialog(
 
                 KeyValueRow(
                     label = stringResource(id = R.string.dialog_restart_game_moves),
-                    value = "$moveCount"
+                    value = moveCount.toString()
                 )
 
                 KeyValueRow(

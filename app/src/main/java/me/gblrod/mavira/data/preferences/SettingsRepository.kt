@@ -8,6 +8,7 @@ import dagger.hilt.android.qualifiers.ApplicationContext
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.map
 import me.gblrod.mavira.core.manager.LanguageManager.getDeviceLanguage
+import me.gblrod.mavira.features.game.difficulty.model.DifficultyOptions
 import me.gblrod.mavira.features.settings.model.LanguageOptions
 import me.gblrod.mavira.features.settings.model.ThemeOptions
 import me.gblrod.mavira.features.settings.state.SettingsUiState
@@ -16,6 +17,7 @@ import javax.inject.Inject
 val themeKey = stringPreferencesKey(name = "theme")
 val languageKey = stringPreferencesKey(name = "language")
 val vibrationKey = booleanPreferencesKey(name = "vibration")
+val difficultyKey = stringPreferencesKey(name = "difficulty")
 
 class SettingsRepository @Inject constructor(
     @ApplicationContext private val context: Context
@@ -31,7 +33,11 @@ class SettingsRepository @Inject constructor(
                     ?.let(block = LanguageOptions::valueOf)
                     ?: getDeviceLanguage(),
 
-                vibrationEnabled = prefs[vibrationKey] ?: true
+                vibrationEnabled = prefs[vibrationKey] ?: true,
+
+                difficultyOptions = prefs[difficultyKey]
+                    ?.let(block = DifficultyOptions::valueOf)
+                    ?: DifficultyOptions.EASY
             )
         }
 
@@ -50,6 +56,12 @@ class SettingsRepository @Inject constructor(
     suspend fun setVibration(enabled: Boolean) {
         context.maviraDataStore.edit { prefs ->
             prefs[vibrationKey] = enabled
+        }
+    }
+
+    suspend fun setDifficulty(difficulty: DifficultyOptions) {
+        context.maviraDataStore.edit { prefs ->
+            prefs[difficultyKey] = difficulty.name
         }
     }
 }

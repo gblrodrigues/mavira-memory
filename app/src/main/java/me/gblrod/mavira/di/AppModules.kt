@@ -10,6 +10,7 @@ import dagger.hilt.components.SingletonComponent
 import javax.inject.Singleton
 import me.gblrod.mavira.data.room.local.dao.GameResultDao
 import me.gblrod.mavira.data.room.local.database.MaviraDatabase
+import me.gblrod.mavira.data.room.migration.MIGRATION_1_2
 
 @Module
 @InstallIn(SingletonComponent::class)
@@ -23,7 +24,9 @@ object AppModules {
             name = "mavira.db",
             context = context,
             klass = MaviraDatabase::class.java
-        ).build()
+        )
+            .addMigrations(MIGRATION_1_2)
+            .build()
     }
 
     @Provides

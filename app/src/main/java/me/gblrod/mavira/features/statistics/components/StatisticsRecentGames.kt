@@ -49,6 +49,8 @@ fun LazyListScope.statisticsRecentGames(
             Spacer(modifier = Modifier.height(8.dp))
 
             StatisticsRecentGameRow(
+                difficultyTitle = stringResource(id = R.string.settings_difficulty_label),
+                difficultyLabel = recentGame.difficulty,
                 date = recentGame.playedAt.toStatisticsDate(),
                 movesLabel = stringResource(id = R.string.statistics_plays),
                 timeLabel = stringResource(id = R.string.statistics_timer),

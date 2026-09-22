@@ -18,13 +18,14 @@
     <string name="route_game">Mavira Memory</string>
     <string name="route_statistics">Estatísticas</string>
     <string name="route_settings">Configurações</string>
+    <string name="route_difficulty">Dificuldade</string>
     
     <!-- GameScreen -->
     <string name="game_movements">Movimentos</string>
     <string name="game_movements_count">%1$d</string>
     <string name="game_pairs">Pares encontrados</string>
     <string name="game_pairs_count">%1$d / %2$d</string>
-    <string name="share_game_result">Mavira Memory 🧠\n\nJogo concluído!\n⏲️ Tempo: %1$s\n🔄 Movimentos: %2$d\n🃏 Pares: %3$d/%4$d\n\nConsegue fazer melhor? 😏</string>
+    <string name="share_game_result">Mavira Memory 🧠\n\nJogo concluído!\n⏲️ Tempo: %1$s\n🔥 Dificuldade: %$2$s\n🔄 Movimentos: %3$d\n🃏 Pares: %4$d/%5$d\n\nConsegue fazer melhor? 😏</string>
 
     <!-- Statistics -->
     <string name="statistics_title">Resumo</string>
@@ -64,11 +65,12 @@
     <string name="settings_preferences_label">PREFERÊNCIAS</string>
     <string name="settings_preferences_description">Configure as preferências do seu jogo.</string>
     <string name="settings_appearance_label">APARÊNCIA</string>
-    <string name="settings_haptics_label">HÁPTICO</string>
+    <string name="settings_gameplay_label">GAMEPLAY</string>
     <string name="settings_vibration_label">Vibração</string>
     <string name="settings_vibration_description">Feedback tátil durante a partida</string>
     <string name="settings_theme_label">Tema</string>
     <string name="settings_language_label">Idioma</string>
+    <string name="settings_difficulty_label">Dificuldade</string>
 
     <!-- Language -->
     <string name="language_dialog_title">Escolha um idioma</string>
@@ -81,4 +83,16 @@
     <string name="theme_darkmode">Escuro</string>
     <string name="theme_lightmode">Claro</string>
     <string name="theme_system">Sistema</string>
+
+    <!-- Difficulty -->
+    <string name="difficulty_header">Escolha o nível de dificuldade que \ncombina com seu estilo de jogo.</string>
+    <string name="difficulty_save">Salvar</string>
+    <string name="difficulty_easy_label">Fácil</string>
+    <string name="difficulty_easy_description">Jogo casual</string>
+    <string name="difficulty_medium_label">Médio</string>
+    <string name="difficulty_medium_description">Jogo padrão</string>
+    <string name="difficulty_hard_label">Difícil</string>
+    <string name="difficulty_hard_description">Um desafio maior</string>
+    <string name="difficulty_expert_label">Especialista</string>
+    <string name="difficulty_expert_description">Desafio máximo</string>
 </resources>

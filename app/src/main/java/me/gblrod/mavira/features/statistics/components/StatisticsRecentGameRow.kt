@@ -15,11 +15,15 @@ import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
+import me.gblrod.mavira.features.game.difficulty.model.DifficultyOptions
 
 @Composable
 fun StatisticsRecentGameRow(
+    difficultyTitle: String,
+    difficultyLabel: DifficultyOptions,
     date: String,
     movesLabel: String,
     timeLabel: String,
@@ -56,6 +60,25 @@ fun StatisticsRecentGameRow(
 
                 Text(
                     text = timePlayed,
+                    style = MaterialTheme.typography.labelSmall,
+                    color = MaterialTheme.colorScheme.onSurfaceVariant
+                )
+            }
+
+            Column(
+                modifier = Modifier.weight(1.2f)
+            ) {
+                Text(
+                    text = difficultyTitle,
+                    style = MaterialTheme.typography.bodyMedium,
+                    fontWeight = FontWeight.SemiBold,
+                    color = MaterialTheme.colorScheme.onSurface
+                )
+
+                Spacer(modifier = Modifier.height(2.dp))
+
+                Text(
+                    text = stringResource(id = difficultyLabel.label),
                     style = MaterialTheme.typography.labelSmall,
                     color = MaterialTheme.colorScheme.onSurfaceVariant
                 )
