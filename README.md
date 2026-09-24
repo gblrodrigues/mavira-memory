@@ -18,7 +18,7 @@ preferences, responsive layouts, configurable haptic feedback, and native game-r
 * Game completion results
 * Share completed game results
 * Statistics and recent games history
-* Persistent game history with Room
+* Persistent game results with Room
 * Theme selection (System, Dark, Light)
 * Language selection (English, Spanish, Portuguese)
 * Configurable haptic feedback
@@ -32,7 +32,7 @@ preferences, responsive layouts, configurable haptic feedback, and native game-r
       <img src="https://github.com/user-attachments/assets/97cedfa6-7d6b-40ec-b257-34f5b300b6dd" width="250" alt="Home Screen"/>
     </td>
     <td align="center">
-      <img src="https://github.com/user-attachments/assets/fe7a0ba3-eb79-4d97-b372-de3d431ba1ee" width="250" alt="Gameplay (Medium)"/>
+      <img src="https://github.com/user-attachments/assets/dd88c19f-2240-4ef5-b1c5-608743529981" width="250" alt="Gameplay"/>
     </td>
     <td align="center">
       <img src="https://github.com/user-attachments/assets/c1d2f2b4-18b3-4a03-8a93-e69c91b14444" width="250" alt="Statistics Screen"/>
@@ -40,7 +40,7 @@ preferences, responsive layouts, configurable haptic feedback, and native game-r
   </tr>
   <tr>
     <td align="center"><b>Home Screen</b></td>
-    <td align="center"><b>Gameplay (Medium)</b></td>
+    <td align="center"><b>Gameplay</b></td>
     <td align="center"><b>Statistics Screen</b></td>
   </tr>
 </table>
@@ -51,10 +51,10 @@ preferences, responsive layouts, configurable haptic feedback, and native game-r
       <img src="https://github.com/user-attachments/assets/3d611b85-4c3a-453d-8221-d2ec0471c5d5" width="250" alt="Settings Screen"/>
     </td>
     <td align="center">
-      <img src="https://github.com/user-attachments/assets/9a9c338e-07f0-4083-9d03-e1d1b42c71f1" width="250" alt="Game Result"/>
+      <img src="https://github.com/user-attachments/assets/43ff32d9-902a-446d-8475-9f02c8ea2c07" width="250" alt="Game Result"/>
     </td>
     <td align="center">
-      <img src="https://github.com/user-attachments/assets/f9d3d5ee-ed31-42fa-9800-1db167fa3a6a" width="250" alt="Share Sheet"/>
+      <img src="https://github.com/user-attachments/assets/34ebac90-92d9-4a7b-a8b9-8e4f740f1e3d" width="250" alt="Share Sheet"/>
     </td>
   </tr>
   <tr>
@@ -65,7 +65,7 @@ preferences, responsive layouts, configurable haptic feedback, and native game-r
 </table>
 
 ### Demo
-https://github.com/user-attachments/assets/ef005c32-30d5-4e20-9952-d38f35e0a019
+https://github.com/user-attachments/assets/01c3c1b2-94b1-4442-a770-4d7b281987f1
 
 ## Architecture
 ```text
@@ -93,11 +93,9 @@ https://github.com/user-attachments/assets/ef005c32-30d5-4e20-9952-d38f35e0a019
 ```
 
 ## Biggest Challenge
-Adopting **Hilt** was initially challenging, as I had more experience with Koin. Learning how Hilt integrates dependency 
-injection into an Android application helped me better understand dependency management and build a more 
-structured architecture.
-
-> This experience also made Hilt my preferred dependency injection framework for future Android projects.
+### Designing a Responsive Game Board
+One of the biggest challenges was designing a game board that supports multiple difficulty levels with different card counts while remaining fully usable in portrait and 
+landscape orientations. The solution dynamically adjusts the number of columns and calculates the largest card size that fits the available space without clipping or requiring scrolling.
 
 ## Technologies Used
 | Category | Technology | Why |
