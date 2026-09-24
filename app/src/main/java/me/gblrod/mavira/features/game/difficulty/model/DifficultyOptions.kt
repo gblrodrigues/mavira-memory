@@ -18,14 +18,16 @@ enum class DifficultyOptions(
     val icon: ImageVector,
     val color: Color,
     val description: Int,
-    val columns: Int,
+    val portraitColumns: Int,
+    val landscapeColumns: Int,
     val pairs: Int
 ) {
     EASY(
         label = R.string.difficulty_easy_label,
         icon = Icons.Default.SentimentVerySatisfied,
         description = R.string.difficulty_easy_description,
-        columns = 4,
+        portraitColumns = 4,
+        landscapeColumns = 6,
         pairs = 6,
         color = LightGreen
     ),
@@ -33,7 +35,8 @@ enum class DifficultyOptions(
         label = R.string.difficulty_medium_label,
         icon = Icons.Default.Bolt,
         description = R.string.difficulty_medium_description,
-        columns = 4,
+        portraitColumns = 4,
+        landscapeColumns = 4,
         pairs = 8,
         color = Yellow
     ),
@@ -41,7 +44,8 @@ enum class DifficultyOptions(
         label = R.string.difficulty_hard_label,
         icon = Icons.Default.LocalFireDepartment,
         description = R.string.difficulty_hard_description,
-        columns = 4,
+        portraitColumns = 4,
+        landscapeColumns = 6,
         pairs = 12,
         color = LightRed
     ),
@@ -49,7 +53,8 @@ enum class DifficultyOptions(
         label = R.string.difficulty_expert_label,
         icon = Icons.Default.EmojiEvents,
         description = R.string.difficulty_expert_description,
-        columns = 6,
+        portraitColumns = 6,
+        landscapeColumns = 6,
         pairs = 18,
         color = PurpleStyle
     )

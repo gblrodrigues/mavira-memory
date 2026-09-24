@@ -21,10 +21,8 @@
     <string name="route_difficulty">Dificuldade</string>
     
     <!-- GameScreen -->
-    <string name="game_movements">Movimentos</string>
-    <string name="game_movements_count">%1$d</string>
-    <string name="game_pairs">Pares encontrados</string>
-    <string name="game_pairs_count">%1$d / %2$d</string>
+    <string name="game_movements">Mov.: %1$d</string>
+    <string name="game_pairs">Pares: %1$d/%2$d</string>
     <string name="share_game_result">Mavira Memory 🧠\n\nJogo concluído!\n⏲️ Tempo: %1$s\n🔥 Dificuldade: %$2$s\n🔄 Movimentos: %3$d\n🃏 Pares: %4$d/%5$d\n\nConsegue fazer melhor? 😏</string>
 
     <!-- Statistics -->

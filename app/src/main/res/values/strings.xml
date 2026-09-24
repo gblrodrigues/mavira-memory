@@ -21,10 +21,8 @@
     <string name="route_difficulty">Difficulty</string>
 
     <!-- GameScreen -->
-    <string name="game_movements">Moves</string>
-    <string name="game_movements_count">%1$d</string>
-    <string name="game_pairs">Pairs found</string>
-    <string name="game_pairs_count">%1$d / %2$d</string>
+    <string name="game_movements">Moves: %1$d</string>
+    <string name="game_pairs">Pairs: %1$d/%2$d</string>
     <string name="share_game_result">Mavira Memory 🧠\n\nGame completed!\n⏲️ Time: %1$s\n🔥 Difficulty: %2$s\n🔄 Moves: %3$d\n🃏 Pairs: %4$d/%5$d\n\nCan you do better? 😏</string>
 
     <!-- Statistics -->

@@ -3,9 +3,7 @@ package me.gblrod.mavira.features.game.components
 import androidx.compose.animation.core.animateFloatAsState
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Box
-import androidx.compose.foundation.layout.aspectRatio
 import androidx.compose.foundation.layout.fillMaxSize
-import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.icons.Icons
@@ -26,16 +24,15 @@ import me.gblrod.mavira.features.game.model.MemoryCard
 @Composable
 fun MemoryCardItem(
     card: MemoryCard,
-    onClick: () -> Unit
+    onClick: () -> Unit,
+    modifier: Modifier = Modifier
 ) {
     val rotation by animateFloatAsState(
         targetValue = if (card.isRevealed || card.isMatched) 180f else 0f
     )
 
     Card(
-        modifier = Modifier
-            .fillMaxWidth()
-            .aspectRatio(1f)
+        modifier = modifier
             .graphicsLayer {
                 rotationY = rotation
                 cameraDistance = 8 * density
