@@ -17,6 +17,8 @@ val LightRed = Color(0xFFF54444)
 val EmeraldGreen = Color(0xFF10B981)
 val Yellow = Color(0xFFF5DA31)
 val PurpleStyle = Color(0xFFBE5FFF)
+val DarkGreen = Color(0xFF0DAF3E)
+val Gold = Color(0xFFD4AF37)
 
 // Buttons
 val ButtonContainerDialog = Color(0xFF61C4B5)
