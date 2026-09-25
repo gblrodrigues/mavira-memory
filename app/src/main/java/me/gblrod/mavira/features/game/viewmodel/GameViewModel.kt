@@ -19,10 +19,10 @@ import kotlinx.coroutines.isActive
 import kotlinx.coroutines.launch
 import me.gblrod.mavira.data.preferences.SettingsRepository
 import me.gblrod.mavira.data.room.repository.GameRepository
+import me.gblrod.mavira.features.game.engine.GameEngine
 import me.gblrod.mavira.features.game.model.GameEffect
 import me.gblrod.mavira.features.game.model.GameResult
 import me.gblrod.mavira.features.game.model.MemoryCard
-import me.gblrod.mavira.features.game.model.createDeck
 import me.gblrod.mavira.features.game.state.GameUiState
 import javax.inject.Inject
 import kotlin.time.Duration.Companion.milliseconds
@@ -42,6 +42,8 @@ class GameViewModel @Inject constructor(
     private var timerJob: Job? = null
     private var checkPairJob: Job? = null
 
+    private val gameEngine = GameEngine()
+
     private val vibrationEnabled = settingsRepository.settings
         .map { it.vibrationEnabled }
         .stateIn(
@@ -55,26 +57,27 @@ class GameViewModel @Inject constructor(
     init {
         viewModelScope.launch {
             val difficulty = settingsRepository.settings.first().difficultyOptions
+            val gameState = gameEngine.startGame(
+                pairs = difficulty.pairs
+            )
 
             _uiState.update {
                 it.copy(
                     difficulty = difficulty,
-                    cards = createDeck(difficulty = difficulty)
+                    cards = gameState.cards
                 )
             }
         }
     }
 
     fun onCardClick(selectedCard: MemoryCard) {
-        val currentState = _uiState.value
+        if (_uiState.value.isCheckingPair) return
 
-        if (
-            currentState.isCheckingPair ||
-            selectedCard.isRevealed ||
-            selectedCard.isMatched
-        ) {
-            return
-        }
+        val result = gameEngine.selectCard(
+            cardId = selectedCard.id
+        )
+
+        if (!result.accepted) return
 
         if (gameStartedAt == null) {
             startTimer()
@@ -82,96 +85,60 @@ class GameViewModel @Inject constructor(
 
         _uiState.update {
             it.copy(
+                cards = result.state.cards,
+                moveCount = result.state.moveCount,
+                pairsFound = result.state.pairsFound,
                 isGameStarted = true
             )
         }
 
-        val revealedCards = currentState.cards.filter {
-            it.isRevealed && !it.isMatched
-        }
-
-        val updatedCards = currentState.cards.map { card ->
-            if (card.id == selectedCard.id) {
-                card.copy(
-                    isRevealed = true
-                )
-            } else {
-                card
-            }
-        }
-
-        _uiState.update {
-            it.copy(
-                cards = updatedCards
-            )
-        }
-
-        if (revealedCards.size == 1) {
-            checkPair(
-                firstCard = revealedCards.first(),
-                secondCard = selectedCard
-            )
+        if (result.pairReady) {
+            checkPair()
         }
     }
 
-    private fun checkPair(
-        firstCard: MemoryCard,
-        secondCard: MemoryCard
-    ) {
+    private fun checkPair() {
+        val result = gameEngine.checkPair() ?: return
+
         _uiState.update {
             it.copy(
-                moveCount = it.moveCount + 1,
                 isCheckingPair = true
             )
         }
 
         checkPairJob = viewModelScope.launch {
-            when {
-                firstCard.symbol == secondCard.symbol -> {
-                    _uiState.update { state ->
-                        val newPairsFound = state.pairsFound + 1
-                        state.copy(
-                            cards = state.cards.map { card ->
-                                if (card.id == firstCard.id || card.id == secondCard.id) {
-                                    card.copy(
-                                        isMatched = true
-                                    )
-                                } else {
-                                    card
-                                }
-                            },
-                            pairsFound = newPairsFound,
-                            isCheckingPair = false
-                        )
-                    }
-
-                    if (_uiState.value.pairsFound == _uiState.value.difficulty.pairs) {
-                        _effects.emit(value = GameEffect.GameCompleted)
-                        stopTimer()
-                        saveGameResult()
-                    } else {
-                        _effects.emit(value = GameEffect.PairMatched)
-                    }
+            if (result.isMatch) {
+                _uiState.update {
+                    it.copy(
+                        cards = result.state.cards,
+                        pairsFound = result.state.pairsFound,
+                        isCheckingPair = false
+                    )
                 }
 
-                else -> {
-                    delay(duration = 1_000.milliseconds)
-
-                    _uiState.update { state ->
-                        state.copy(
-                            cards = state.cards.map { card ->
-                                if (card.id == firstCard.id || card.id == secondCard.id) {
-                                    card.copy(
-                                        isRevealed = false
-                                    )
-                                } else {
-                                    card
-                                }
-                            },
-                            isCheckingPair = false
-                        )
-                    }
+                if (result.isComplete) {
+                    _effects.emit(GameEffect.GameCompleted)
+                    stopTimer()
+                    saveGameResult()
+                } else {
+                    _effects.emit(GameEffect.PairMatched)
                 }
+
+                return@launch
+            }
+
+            delay(duration = 1_000.milliseconds)
+
+            val state = gameEngine.hidePair(
+                firstCardId = result.firstCardId,
+                secondCardId = result.secondCardId
+            )
+
+            _uiState.update {
+                it.copy(
+                    cards = state.cards,
+                    isCheckingPair = false
+                )
             }
         }
     }
@@ -238,10 +205,11 @@ class GameViewModel @Inject constructor(
         gameStartedAt = null
 
         val difficulty = _uiState.value.difficulty
+        val gameState = gameEngine.restart()
 
         _uiState.value = GameUiState(
             difficulty = difficulty,
-            cards = createDeck(difficulty = difficulty)
+            cards = gameState.cards
         )
     }
 }
