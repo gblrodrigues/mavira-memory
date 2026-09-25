@@ -2,11 +2,10 @@ package me.gblrod.mavira.features.game.state
 
 import me.gblrod.mavira.features.game.difficulty.model.DifficultyOptions
 import me.gblrod.mavira.features.game.model.MemoryCard
-import me.gblrod.mavira.features.game.model.createDeck
 
 data class GameUiState(
     val difficulty: DifficultyOptions = DifficultyOptions.EASY,
-    val cards: List<MemoryCard> = createDeck(difficulty),
+    val cards: List<MemoryCard> = emptyList(),
     val isCheckingPair: Boolean = false,
     val moveCount: Int = 0,
     val pairsFound: Int = 0,
