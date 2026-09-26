@@ -18,9 +18,7 @@ fun MaviraRoot(
     settingsRepository: SettingsRepository,
     splashScreen: SplashScreen
 ) {
-    val settings by settingsRepository.settings.collectAsStateWithLifecycle(
-        initialValue = null
-    )
+    val settings by settingsRepository.settings.collectAsStateWithLifecycle()
 
     splashScreen.setKeepOnScreenCondition {
         settings == null
