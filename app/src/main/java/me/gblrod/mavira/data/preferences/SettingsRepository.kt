@@ -5,24 +5,35 @@ import androidx.datastore.preferences.core.booleanPreferencesKey
 import androidx.datastore.preferences.core.edit
 import androidx.datastore.preferences.core.stringPreferencesKey
 import dagger.hilt.android.qualifiers.ApplicationContext
-import kotlinx.coroutines.flow.Flow
+import kotlinx.coroutines.CoroutineScope
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.SupervisorJob
+import kotlinx.coroutines.flow.SharingStarted
+import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.map
+import kotlinx.coroutines.flow.stateIn
 import me.gblrod.mavira.core.manager.LanguageManager.getDeviceLanguage
 import me.gblrod.mavira.features.game.difficulty.model.DifficultyOptions
 import me.gblrod.mavira.features.settings.model.LanguageOptions
 import me.gblrod.mavira.features.settings.model.ThemeOptions
 import me.gblrod.mavira.features.settings.state.SettingsUiState
 import javax.inject.Inject
+import javax.inject.Singleton
 
 val themeKey = stringPreferencesKey(name = "theme")
 val languageKey = stringPreferencesKey(name = "language")
 val vibrationKey = booleanPreferencesKey(name = "vibration")
 val difficultyKey = stringPreferencesKey(name = "difficulty")
 
+@Singleton
 class SettingsRepository @Inject constructor(
     @ApplicationContext private val context: Context
 ) {
-    val settings: Flow<SettingsUiState> =
+    private val repositoryScope = CoroutineScope(
+        context = SupervisorJob() + Dispatchers.IO
+    )
+
+    val settings: StateFlow<SettingsUiState?> =
         context.maviraDataStore.data.map { prefs ->
             SettingsUiState(
                 themeOptions = prefs[themeKey]
@@ -39,7 +50,11 @@ class SettingsRepository @Inject constructor(
                     ?.let(block = DifficultyOptions::valueOf)
                     ?: DifficultyOptions.EASY
             )
-        }
+        }.stateIn(
+                scope = repositoryScope,
+                started = SharingStarted.Eagerly,
+                initialValue = null
+            )
 
     suspend fun setTheme(theme: ThemeOptions) {
         context.maviraDataStore.edit { prefs ->

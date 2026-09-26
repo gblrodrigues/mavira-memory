@@ -11,7 +11,7 @@ import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.SharingStarted
 import kotlinx.coroutines.flow.asSharedFlow
 import kotlinx.coroutines.flow.asStateFlow
-import kotlinx.coroutines.flow.first
+import kotlinx.coroutines.flow.filterNotNull
 import kotlinx.coroutines.flow.map
 import kotlinx.coroutines.flow.stateIn
 import kotlinx.coroutines.flow.update
@@ -32,9 +32,6 @@ class GameViewModel @Inject constructor(
     private val gameRepository: GameRepository,
     settingsRepository: SettingsRepository
 ) : ViewModel() {
-    private val _uiState = MutableStateFlow(GameUiState())
-    val uiState = _uiState.asStateFlow()
-
     private val _effects = MutableSharedFlow<GameEffect>()
     val effects = _effects.asSharedFlow()
 
@@ -44,31 +41,32 @@ class GameViewModel @Inject constructor(
 
     private val gameEngine = GameEngine()
 
+    private val settings = requireNotNull(
+        settingsRepository.settings.value
+    )
+
+    private val _uiState = MutableStateFlow(
+        GameUiState(
+            difficulty = settings.difficultyOptions,
+            cards = gameEngine.startGame(
+                pairs = settings.difficultyOptions.pairs
+            ).cards
+        )
+    )
+
+    val uiState = _uiState.asStateFlow()
+
     private val vibrationEnabled = settingsRepository.settings
+        .filterNotNull()
         .map { it.vibrationEnabled }
         .stateIn(
             scope = viewModelScope,
             started = SharingStarted.WhileSubscribed(stopTimeoutMillis = 5_000),
-            initialValue = true
+            initialValue = settings.vibrationEnabled
         )
 
     val isVibrationEnabled = vibrationEnabled
 
-    init {
-        viewModelScope.launch {
-            val difficulty = settingsRepository.settings.first().difficultyOptions
-            val gameState = gameEngine.startGame(
-                pairs = difficulty.pairs
-            )
-
-            _uiState.update {
-                it.copy(
-                    difficulty = difficulty,
-                    cards = gameState.cards
-                )
-            }
-        }
-    }
 
     fun onCardClick(selectedCard: MemoryCard) {
         if (_uiState.value.isCheckingPair) return
