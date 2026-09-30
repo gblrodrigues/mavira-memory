@@ -11,7 +11,9 @@ data class TopBarConfig(
 )
 
 data class TopBarState(
-    val timer: Long = 0L
+    val timer: Long = 0L,
+    val isRestartEnabled: Boolean = false,
+    val onRestartGame: () -> Unit = {}
 )
 
 fun NavDestination?.topBarConfig(): TopBarConfig? {

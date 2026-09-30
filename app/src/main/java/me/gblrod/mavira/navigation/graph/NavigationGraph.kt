@@ -47,19 +47,11 @@ fun NavigationGraph(
 
         composable<Route.Game> {
             val gameViewModel: GameViewModel = hiltViewModel()
-            val uiState by gameViewModel.uiState.collectAsStateWithLifecycle()
-
-            LaunchedEffect(uiState.timer) {
-                onTopBarStateChange(
-                    TopBarState(
-                        timer = uiState.timer
-                    )
-                )
-            }
 
             GameScreen(
                 gameViewModel = gameViewModel,
-                onNavigateHome = { navHostController.popBackStack() }
+                onNavigateHome = { navHostController.popBackStack() },
+                onTopBarStateChange = onTopBarStateChange
             )
         }
 

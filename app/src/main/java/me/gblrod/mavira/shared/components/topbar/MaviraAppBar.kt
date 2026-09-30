@@ -8,6 +8,7 @@ import androidx.compose.foundation.layout.width
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.automirrored.filled.ArrowBack
 import androidx.compose.material.icons.filled.AccessTime
+import androidx.compose.material.icons.filled.RestartAlt
 import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.Icon
 import androidx.compose.material3.IconButton
@@ -20,6 +21,7 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.unit.dp
+import me.gblrod.mavira.R
 import me.gblrod.mavira.shared.extension.toTimerFormat
 
 @OptIn(ExperimentalMaterial3Api::class)
@@ -27,7 +29,9 @@ import me.gblrod.mavira.shared.extension.toTimerFormat
 fun MaviraAppBar(
     config: TopBarConfig,
     onBackClick: () -> Unit,
-    timer: Long
+    timer: Long,
+    isRestartEnabled: Boolean = false,
+    onRestartGame: () -> Unit = {}
 ) {
     TopAppBar(
         modifier = Modifier.height(76.dp),
@@ -53,18 +57,30 @@ fun MaviraAppBar(
             if (config.showTimer) {
                 Row(
                     verticalAlignment = Alignment.CenterVertically,
-                    modifier = Modifier.padding(end = 8.dp)
+                    modifier = Modifier.padding(end = 4.dp)
                 ) {
                     Icon(
                         imageVector = Icons.Default.AccessTime,
                         contentDescription = null
                     )
 
-                    Spacer(modifier = Modifier.width(4.dp))
+                    Spacer(modifier = Modifier.width(6.dp))
 
                     Text(
                         text = timer.toTimerFormat()
                     )
+
+                    Spacer(modifier = Modifier.width(4.dp))
+
+                    IconButton(
+                        onClick = { onRestartGame() },
+                        enabled = isRestartEnabled
+                    ) {
+                        Icon(
+                            imageVector = Icons.Default.RestartAlt,
+                            contentDescription = stringResource(id = R.string.button_restart_game)
+                        )
+                    }
                 }
             }
         }
