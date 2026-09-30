@@ -36,7 +36,9 @@ fun MaviraApp() {
                 MaviraAppBar(
                     config = config,
                     onBackClick = { navHostController.popBackStack() },
-                    timer = topBarState.timer
+                    timer = topBarState.timer,
+                    isRestartEnabled = topBarState.isRestartEnabled,
+                    onRestartGame = topBarState.onRestartGame
                 )
             }
         }

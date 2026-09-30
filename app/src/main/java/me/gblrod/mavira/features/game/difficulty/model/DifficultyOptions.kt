@@ -44,7 +44,7 @@ enum class DifficultyOptions(
         label = R.string.difficulty_hard_label,
         icon = Icons.Default.LocalFireDepartment,
         description = R.string.difficulty_hard_description,
-        portraitColumns = 4,
+        portraitColumns = 6,
         landscapeColumns = 6,
         pairs = 12,
         color = LightRed

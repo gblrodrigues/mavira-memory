@@ -10,7 +10,6 @@ import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxHeight
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
-import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.layout.width
@@ -26,11 +25,9 @@ fun GameContent(
     moveCount: Int,
     pairsFound: Int,
     pairsTotal: Int,
-    isGameStarted: Boolean,
     difficulty: (DifficultyOptions),
     cards: List<MemoryCard>,
-    onCardClick: (MemoryCard) -> Unit,
-    onRestartClick: () -> Unit
+    onCardClick: (MemoryCard) -> Unit
 ) {
     BoxWithConstraints(
         modifier = Modifier.fillMaxSize()
@@ -62,13 +59,6 @@ fun GameContent(
                                 vertical = 12.dp,
                                 horizontal = 16.dp
                             )
-                    )
-
-                    Spacer(modifier = Modifier.height(16.dp))
-
-                    GameRestartButton(
-                        onClick = { onRestartClick() },
-                        enabled = isGameStarted
                     )
                 }
 
@@ -126,13 +116,6 @@ fun GameContent(
                             columns = columns,
                             cards = cards,
                             onCardClick = { onCardClick(it) }
-                        )
-
-                        Spacer(modifier = Modifier.height(24.dp))
-
-                        GameRestartButton(
-                            onClick = { onRestartClick() },
-                            enabled = isGameStarted
                         )
                     }
                 }

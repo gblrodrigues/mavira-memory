@@ -1,6 +1,7 @@
 package me.gblrod.mavira.features.game.screen
 
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
@@ -15,12 +16,14 @@ import me.gblrod.mavira.features.game.components.GameEffectsHandler
 import me.gblrod.mavira.features.game.components.GameRestartDialog
 import me.gblrod.mavira.features.game.components.ResultDialog
 import me.gblrod.mavira.features.game.viewmodel.GameViewModel
+import me.gblrod.mavira.shared.components.topbar.TopBarState
 import me.gblrod.mavira.shared.extension.toTimerFormat
 
 @Composable
 fun GameScreen(
     gameViewModel: GameViewModel,
-    onNavigateHome: () -> Unit
+    onNavigateHome: () -> Unit,
+    onTopBarStateChange: (TopBarState) -> Unit
 ) {
     val uiState by gameViewModel.uiState.collectAsStateWithLifecycle()
     val isVibrationEnabled by gameViewModel.isVibrationEnabled.collectAsStateWithLifecycle()
@@ -32,6 +35,16 @@ fun GameScreen(
         ShareManager(context = context)
     }
 
+    LaunchedEffect(uiState.timer, uiState.isGameStarted) {
+        onTopBarStateChange(
+            TopBarState(
+                timer = uiState.timer,
+                isRestartEnabled = uiState.isGameStarted,
+                onRestartGame = { isRestartGameDialog = true }
+            )
+        )
+    }
+
     GameEffectsHandler(
         effects = gameViewModel.effects,
         isVibrationEnabled = isVibrationEnabled
@@ -41,10 +54,8 @@ fun GameScreen(
         moveCount = uiState.moveCount,
         pairsFound = uiState.pairsFound,
         pairsTotal = uiState.difficulty.pairs,
-        isGameStarted = uiState.isGameStarted,
         difficulty = uiState.difficulty,
         cards = uiState.cards,
-        onRestartClick = { isRestartGameDialog = true },
         onCardClick = { gameViewModel.onCardClick(selectedCard = it) }
     )
 
