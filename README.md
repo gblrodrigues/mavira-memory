@@ -1,5 +1,5 @@
 # Mavira
-Mavira is an Android memory matching game built with Kotlin and Jetpack Compose, featuring multiple difficulty levels, persistent statistics and 
+Mavira is an Android memory matching game built with Kotlin and Jetpack Compose, featuring multiple difficulty levels, a hint system, persistent statistics and 
 preferences, responsive layouts, configurable haptic feedback, and native game-result sharing.
 
 - [Features](#features)
@@ -16,6 +16,7 @@ preferences, responsive layouts, configurable haptic feedback, and native game-r
 * Game timer
 * Restart with confirmation
 * Game completion results
+* Hint system with limited uses per game
 * Share completed game results
 * Statistics and recent games history
 * Persistent game results with Room
@@ -32,7 +33,7 @@ preferences, responsive layouts, configurable haptic feedback, and native game-r
       <img src="https://github.com/user-attachments/assets/97cedfa6-7d6b-40ec-b257-34f5b300b6dd" width="250" alt="Home Screen"/>
     </td>
     <td align="center">
-      <img src="https://github.com/user-attachments/assets/dd88c19f-2240-4ef5-b1c5-608743529981" width="250" alt="Gameplay"/>
+      <img src="https://github.com/user-attachments/assets/7808fe99-aad6-4b71-8f0b-62ab246994f3" width="250" alt="Gameplay"/>
     </td>
     <td align="center">
       <img src="https://github.com/user-attachments/assets/c1d2f2b4-18b3-4a03-8a93-e69c91b14444" width="250" alt="Statistics Screen"/>
@@ -51,10 +52,10 @@ preferences, responsive layouts, configurable haptic feedback, and native game-r
       <img src="https://github.com/user-attachments/assets/3d611b85-4c3a-453d-8221-d2ec0471c5d5" width="250" alt="Settings Screen"/>
     </td>
     <td align="center">
-      <img src="https://github.com/user-attachments/assets/43ff32d9-902a-446d-8475-9f02c8ea2c07" width="250" alt="Game Result"/>
+      <img src="https://github.com/user-attachments/assets/161d44ea-f821-4837-bf3e-72f01957878e" width="250" alt="Game Result"/>
     </td>
     <td align="center">
-      <img src="https://github.com/user-attachments/assets/34ebac90-92d9-4a7b-a8b9-8e4f740f1e3d" width="250" alt="Share Sheet"/>
+      <img src="https://github.com/user-attachments/assets/787ffe5b-b915-4432-82b0-ca23cd888f2a" width="250a" lt="Share Sheet"/>
     </td>
   </tr>
   <tr>
@@ -65,7 +66,7 @@ preferences, responsive layouts, configurable haptic feedback, and native game-r
 </table>
 
 ### Demo
-https://github.com/user-attachments/assets/01c3c1b2-94b1-4442-a770-4d7b281987f1
+https://github.com/user-attachments/assets/67be1dd1-a0b5-43c7-9690-7904c24d0159
 
 ## Architecture
 ```text
