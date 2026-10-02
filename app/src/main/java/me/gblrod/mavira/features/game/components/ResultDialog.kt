@@ -76,13 +76,13 @@ fun ResultDialog(
                     )
 
                     ResultCard(
-                        icon = Icons.Default.AccessTime,
-                        label = playTime.toTimerFormat()
+                        icon = Icons.Default.Style,
+                        label = pairsTotal.toString()
                     )
 
                     ResultCard(
-                        icon = Icons.Default.Style,
-                        label = pairsTotal.toString()
+                        icon = Icons.Default.AccessTime,
+                        label = playTime.toTimerFormat()
                     )
                 }
 
@@ -139,7 +139,8 @@ private fun IconTextRow(
 ) {
     Row(
         modifier = Modifier.fillMaxWidth(),
-        horizontalArrangement = Arrangement.spacedBy(8.dp)
+        horizontalArrangement = Arrangement.spacedBy(8.dp),
+        verticalAlignment = Alignment.CenterVertically
     ) {
         Icon(
             imageVector = icon,

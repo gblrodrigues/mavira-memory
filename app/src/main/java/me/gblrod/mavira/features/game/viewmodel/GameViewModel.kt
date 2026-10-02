@@ -19,6 +19,7 @@ import kotlinx.coroutines.isActive
 import kotlinx.coroutines.launch
 import me.gblrod.mavira.data.preferences.SettingsRepository
 import me.gblrod.mavira.data.room.repository.GameRepository
+import me.gblrod.mavira.features.game.config.HintConfig
 import me.gblrod.mavira.features.game.engine.GameEngine
 import me.gblrod.mavira.features.game.model.GameEffect
 import me.gblrod.mavira.features.game.model.GameResult
@@ -38,6 +39,7 @@ class GameViewModel @Inject constructor(
     private var gameStartedAt: Long? = null
     private var timerJob: Job? = null
     private var checkPairJob: Job? = null
+    private var hintJob: Job? = null
 
     private val gameEngine = GameEngine()
 
@@ -92,6 +94,59 @@ class GameViewModel @Inject constructor(
 
         if (result.pairReady) {
             checkPair()
+        }
+    }
+
+    fun onHintClick() {
+        val state = _uiState.value
+
+        if (!state.isGameStarted ||
+            state.pairsFound == state.difficulty.pairs ||
+            state.hintsRemaining <= 0 ||
+            state.isCheckingPair ||
+            state.isHintShowing
+        ) return
+
+        val hint = gameEngine.getHint() ?: return
+
+        if (gameStartedAt == null) {
+            startTimer()
+        }
+
+        _uiState.update {
+            it.copy(
+                hintsRemaining = it.hintsRemaining - 1,
+                isHintShowing = true,
+                isGameStarted = true,
+                cards = it.cards.map { card ->
+                    if (card.id in hint.cardIds) {
+                        card.copy(
+                            isGlowing = true
+                        )
+                    } else {
+                        card
+                    }
+                }
+            )
+        }
+
+        hintJob = viewModelScope.launch {
+            delay(duration = HintConfig.HINT_GLOW_DURATION_MS.milliseconds)
+
+            _uiState.update {
+                it.copy(
+                    isHintShowing = false,
+                    cards = it.cards.map { card ->
+                        if (card.id in hint.cardIds) {
+                            card.copy(
+                                isGlowing = false
+                            )
+                        } else {
+                            card
+                        }
+                    }
+                )
+            }
         }
     }
 
@@ -200,6 +255,9 @@ class GameViewModel @Inject constructor(
         checkPairJob?.cancel()
         checkPairJob = null
 
+        hintJob?.cancel()
+        hintJob = null
+
         gameStartedAt = null
 
         val difficulty = _uiState.value.difficulty
@@ -207,7 +265,8 @@ class GameViewModel @Inject constructor(
 
         _uiState.value = GameUiState(
             difficulty = difficulty,
-            cards = gameState.cards
+            cards = gameState.cards,
+            hintsRemaining = HintConfig.INITIAL_HINTS
         )
     }
 }

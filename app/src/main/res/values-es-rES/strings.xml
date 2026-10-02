@@ -13,6 +13,7 @@
     <string name="button_configs">Configuración</string>
     <string name="button_unavailable">PRÓXIMAMENTE</string>
     <string name="button_restart_game">Reiniciar</string>
+    <string name="button_hint_game">Pista</string>
 
     <!-- Routes -->
     <string name="route_game">Mavira Memory</string>
@@ -21,8 +22,9 @@
     <string name="route_difficulty">Dificultad</string>
 
     <!-- GameScreen -->
-    <string name="game_movements">Mov.: %1$d</string>
-    <string name="game_pairs">Parej.: %1$d/%2$d</string>
+    <string name="game_movements">%1$d</string>
+    <string name="game_pairs">%1$d/%2$d</string>
+    <string name="game_timer">%1$s</string>
     <string name="share_game_result">Mavira Memory 🧠\n\n¡Juego completado!\n⏲️ Tiempo: %1$s\n🔥 Dificultad: %2$s\n🔄 Movimientos: %3$d\n🃏 Parejas: %4$d/%5$d\n\n¿Puedes hacerlo mejor? 😏</string>
 
     <!-- Statistics -->

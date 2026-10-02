@@ -10,6 +10,7 @@ import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.icons.Icons
+import androidx.compose.material.icons.filled.AccessTime
 import androidx.compose.material.icons.filled.Style
 import androidx.compose.material.icons.filled.TouchApp
 import androidx.compose.material3.Card
@@ -26,16 +27,18 @@ import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.unit.dp
 import me.gblrod.mavira.R
 import me.gblrod.mavira.features.game.difficulty.model.DifficultyOptions
+import me.gblrod.mavira.shared.extension.toTimerFormat
 import me.gblrod.mavira.ui.theme.DarkGreen
 import me.gblrod.mavira.ui.theme.Gold
 
 @Composable
 fun GameSectionHeader(
+    modifier: Modifier = Modifier,
     moveCount: Int,
     pairsFound: Int,
     pairsTotal: Int,
+    timer: Long = 0L,
     difficulty: DifficultyOptions,
-    modifier: Modifier = Modifier,
     difficultyRowModifier: Modifier = Modifier
         .fillMaxWidth()
         .padding(horizontal = 16.dp)
@@ -60,6 +63,14 @@ fun GameSectionHeader(
             icon = Icons.Default.Style,
             value = pairsFound,
             secondaryValue = pairsTotal,
+            modifier = Modifier.weight(1f)
+        )
+
+        CardItem(
+            color = MaterialTheme.colorScheme.onSurfaceVariant,
+            text = R.string.game_timer,
+            icon = Icons.Default.AccessTime,
+            secondaryValueText = timer.toTimerFormat(),
             modifier = Modifier.weight(1f)
         )
     }
@@ -91,8 +102,9 @@ private fun CardItem(
     color: Color,
     icon: ImageVector,
     text: Int,
-    value: Int,
-    secondaryValue: Int? = null
+    value: Int? = null,
+    secondaryValue: Int? = null,
+    secondaryValueText: String? = null
 ) {
     Card(
         colors = CardDefaults.cardColors(contentColor = color, containerColor = Color.Transparent),
@@ -117,10 +129,11 @@ private fun CardItem(
                 )
 
                 Text(
-                    text = if (secondaryValue != null) {
-                        stringResource(id = text, value, secondaryValue)
-                    } else {
-                        stringResource(id = text, value)
+                    text = when {
+                        value != null && secondaryValue != null -> stringResource(id = text, value, secondaryValue)
+                        secondaryValueText != null -> stringResource(id = text, secondaryValueText)
+                        value != null -> stringResource(id = text, value)
+                        else -> stringResource(id = text)
                     }
                 )
             }

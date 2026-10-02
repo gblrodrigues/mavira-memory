@@ -35,12 +35,29 @@ fun GameScreen(
         ShareManager(context = context)
     }
 
-    LaunchedEffect(uiState.timer, uiState.isGameStarted) {
+    val isGameStarted = uiState.isGameStarted
+    val hintsRemaining = uiState.hintsRemaining
+    val isCheckingPair = uiState.isCheckingPair
+    val isHintShowing = uiState.isHintShowing
+
+    LaunchedEffect(
+        uiState.timer,
+        isGameStarted,
+        hintsRemaining,
+        isCheckingPair,
+        isHintShowing
+    ) {
         onTopBarStateChange(
             TopBarState(
-                timer = uiState.timer,
-                isRestartEnabled = uiState.isGameStarted,
-                onRestartGame = { isRestartGameDialog = true }
+                isRestartEnabled = isGameStarted,
+                onRestartGame = { isRestartGameDialog = true },
+                hintsRemaining = hintsRemaining,
+                isHintEnabled = isGameStarted &&
+                        hintsRemaining > 0 &&
+                        !isCheckingPair &&
+                        !isHintShowing &&
+                        uiState.pairsFound < uiState.difficulty.pairs,
+                onHintGame = { gameViewModel.onHintClick() }
             )
         )
     }
@@ -54,6 +71,7 @@ fun GameScreen(
         moveCount = uiState.moveCount,
         pairsFound = uiState.pairsFound,
         pairsTotal = uiState.difficulty.pairs,
+        timer = uiState.timer,
         difficulty = uiState.difficulty,
         cards = uiState.cards,
         onCardClick = { gameViewModel.onCardClick(selectedCard = it) }

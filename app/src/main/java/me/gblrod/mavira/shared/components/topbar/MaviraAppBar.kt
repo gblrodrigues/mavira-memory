@@ -7,8 +7,10 @@ import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.width
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.automirrored.filled.ArrowBack
-import androidx.compose.material.icons.filled.AccessTime
+import androidx.compose.material.icons.filled.Lightbulb
 import androidx.compose.material.icons.filled.RestartAlt
+import androidx.compose.material3.Badge
+import androidx.compose.material3.BadgedBox
 import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.Icon
 import androidx.compose.material3.IconButton
@@ -22,16 +24,21 @@ import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.unit.dp
 import me.gblrod.mavira.R
-import me.gblrod.mavira.shared.extension.toTimerFormat
+import me.gblrod.mavira.features.game.config.HintConfig
+import me.gblrod.mavira.ui.theme.DarkGreen
+import me.gblrod.mavira.ui.theme.LightRed
+import me.gblrod.mavira.ui.theme.Yellow
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun MaviraAppBar(
     config: TopBarConfig,
     onBackClick: () -> Unit,
-    timer: Long,
     isRestartEnabled: Boolean = false,
-    onRestartGame: () -> Unit = {}
+    onRestartGame: () -> Unit = {},
+    hintsRemaining: Int = HintConfig.INITIAL_HINTS,
+    isHintEnabled: Boolean = false,
+    onHintGame: () -> Unit = {}
 ) {
     TopAppBar(
         modifier = Modifier.height(76.dp),
@@ -54,21 +61,41 @@ fun MaviraAppBar(
             }
         },
         actions = {
-            if (config.showTimer) {
+            if (config.showHint && config.showRestartGame) {
                 Row(
                     verticalAlignment = Alignment.CenterVertically,
                     modifier = Modifier.padding(end = 4.dp)
                 ) {
-                    Icon(
-                        imageVector = Icons.Default.AccessTime,
-                        contentDescription = null
-                    )
+                    IconButton(
+                        onClick = { onHintGame() },
+                        enabled = isHintEnabled
+                    ) {
+                        BadgedBox(
+                            badge = {
+                                if (hintsRemaining > 0) {
+                                    val badgeColor = when {
+                                        hintsRemaining > 2 -> DarkGreen
+                                        hintsRemaining > 1 -> Yellow
+                                        else -> LightRed
+                                    }
 
-                    Spacer(modifier = Modifier.width(6.dp))
-
-                    Text(
-                        text = timer.toTimerFormat()
-                    )
+                                    Badge(
+                                        containerColor = badgeColor
+                                    ) {
+                                        Text(
+                                            text = hintsRemaining.toString(),
+                                            color = Color.White
+                                        )
+                                    }
+                                }
+                            }
+                        ) {
+                            Icon(
+                                imageVector = Icons.Default.Lightbulb,
+                                contentDescription = stringResource(id = R.string.button_hint_game)
+                            )
+                        }
+                    }
 
                     Spacer(modifier = Modifier.width(4.dp))
 

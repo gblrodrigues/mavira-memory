@@ -1,6 +1,7 @@
 package me.gblrod.mavira.features.game.engine
 
 import me.gblrod.mavira.features.game.engine.model.GameState
+import me.gblrod.mavira.features.game.engine.model.HintResult
 import me.gblrod.mavira.features.game.engine.model.PairResult
 import me.gblrod.mavira.features.game.engine.model.SelectionResult
 import me.gblrod.mavira.features.game.model.MemoryCard
@@ -142,6 +143,41 @@ class GameEngine {
         )
 
         return state
+    }
+
+    fun getHint(): HintResult? {
+        val unmatchedCards = state.cards.filter { !it.isMatched }
+
+        val revealedCard = unmatchedCards.firstOrNull { it.isRevealed }
+
+        if (revealedCard != null) {
+            val matchingCard = unmatchedCards.firstOrNull {
+                it.id != revealedCard.id && it.symbol == revealedCard.symbol
+            }
+
+            return matchingCard?.let {
+                HintResult(
+                    cardIds = listOf(
+                        it.id
+                    )
+                )
+            }
+        }
+
+        val availablePairs = unmatchedCards
+            .groupBy { it.symbol }
+            .values
+            .filter { it.size == 2 }
+
+        return availablePairs
+            .randomOrNull()
+            ?.let { pair ->
+                HintResult(
+                    cardIds = pair.map {
+                        it.id
+                    }
+                )
+            }
     }
 
     fun restart(): GameState {

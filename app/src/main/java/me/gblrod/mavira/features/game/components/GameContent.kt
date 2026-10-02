@@ -25,6 +25,7 @@ fun GameContent(
     moveCount: Int,
     pairsFound: Int,
     pairsTotal: Int,
+    timer: Long = 0L,
     difficulty: (DifficultyOptions),
     cards: List<MemoryCard>,
     onCardClick: (MemoryCard) -> Unit
@@ -44,7 +45,7 @@ fun GameContent(
                 verticalAlignment = Alignment.CenterVertically
             ) {
                 Column(
-                    modifier = Modifier.weight(0.8f),
+                    modifier = Modifier.weight(0.9f),
                     horizontalAlignment = Alignment.CenterHorizontally,
                     verticalArrangement = Arrangement.Center
                 ) {
@@ -52,6 +53,7 @@ fun GameContent(
                         moveCount = moveCount,
                         pairsFound = pairsFound,
                         pairsTotal = pairsTotal,
+                        timer = timer,
                         difficulty = difficulty,
                         difficultyRowModifier = Modifier
                             .fillMaxWidth()
@@ -99,6 +101,7 @@ fun GameContent(
                     moveCount = moveCount,
                     pairsFound = pairsFound,
                     pairsTotal = pairsTotal,
+                    timer = timer,
                     difficulty = difficulty,
                     modifier = Modifier.padding(vertical = 16.dp)
                 )
