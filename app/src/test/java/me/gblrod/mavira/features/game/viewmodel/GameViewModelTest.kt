@@ -533,6 +533,75 @@ class GameViewModelTest {
         assertFalse(newState.isCheckingPair)
     }
 
+    @Test
+    fun onHintClick_noCardRevealed_decrementsHintsRemainingAndGlowsAvailablePair() = runTest {
+        gameViewModel = createGameViewModel(
+            difficulty = DifficultyOptions.EASY
+        )
+
+        val initialState = gameViewModel.uiState.value
+        assertEquals(3, initialState.hintsRemaining)
+
+        val firstCard = initialState.cards.first()
+        val secondCard = initialState.cards.first {
+            it.id != firstCard.id && it.symbol != firstCard.symbol
+        }
+
+        gameViewModel.onCardClick(
+            selectedCard = firstCard
+        )
+        gameViewModel.onCardClick(
+            selectedCard = secondCard
+        )
+
+        advanceTimeBy(delayTime = 1_000.milliseconds)
+        runCurrent()
+
+        gameViewModel.onHintClick()
+
+        val hintedState = gameViewModel.uiState.value
+        assertEquals(2, hintedState.hintsRemaining)
+
+        val glowingCards = hintedState.cards.filter { it.isGlowing }
+        assertEquals(2, glowingCards.size)
+        assertEquals(glowingCards[0].symbol, glowingCards[1].symbol)
+
+        advanceTimeBy(delayTime = 3_000.milliseconds)
+        runCurrent()
+
+        val afterGlowState = gameViewModel.uiState.value
+        assertTrue(afterGlowState.cards.all { !it.isGlowing })
+
+        gameViewModel.restart()
+    }
+
+    @Test
+    fun onHintClick_oneCardRevealed_glowingMatchingPartnerCard() = runTest {
+        gameViewModel = createGameViewModel(
+            difficulty = DifficultyOptions.EASY
+        )
+
+        val firstCard = gameViewModel.uiState.value.cards.first()
+        gameViewModel.onCardClick(selectedCard = firstCard)
+
+        gameViewModel.onHintClick()
+
+        val hintedState = gameViewModel.uiState.value
+        assertEquals(2, hintedState.hintsRemaining)
+
+        val glowingCards = hintedState.cards.filter { it.isGlowing }
+        assertEquals(1, glowingCards.size)
+        assertEquals(firstCard.symbol, glowingCards.first().symbol)
+
+        advanceTimeBy(delayTime = 3_000.milliseconds)
+        runCurrent()
+
+        val afterGlowState = gameViewModel.uiState.value
+        assertTrue(afterGlowState.cards.all { !it.isGlowing })
+
+        gameViewModel.restart()
+    }
+
     private fun createGameViewModel(
         difficulty: DifficultyOptions
     ): GameViewModel {
