@@ -7,6 +7,7 @@ preferences, responsive layouts, configurable haptic feedback, and native game-r
 - [Architecture](#architecture)
 - [Biggest Challenge](#biggest-challenge)
 - [Technologies Used](#technologies-used)
+- [Tests](#tests)
 - [Contact](#contact)
 
 ## Features
@@ -55,7 +56,7 @@ preferences, responsive layouts, configurable haptic feedback, and native game-r
       <img src="https://github.com/user-attachments/assets/161d44ea-f821-4837-bf3e-72f01957878e" width="250" alt="Game Result"/>
     </td>
     <td align="center">
-      <img src="https://github.com/user-attachments/assets/787ffe5b-b915-4432-82b0-ca23cd888f2a" width="250a" lt="Share Sheet"/>
+      <img src="https://github.com/user-attachments/assets/787ffe5b-b915-4432-82b0-ca23cd888f2a" width="250" alt="Share Sheet"/>
     </td>
   </tr>
   <tr>
@@ -94,23 +95,34 @@ https://github.com/user-attachments/assets/67be1dd1-a0b5-43c7-9690-7904c24d0159
                               └──────────┘   └───────────┘
 ```
 
+## Tests
+Mavira includes unit tests covering game logic and ViewModel behavior, including:
+
+* Game deck generation and difficulty levels
+* Card selection and pair matching
+* Game completion and restart
+* Timer behavior
+* Hint behavior
+* ViewModel state and game effects
+
 ## Biggest Challenge
 ### Designing a Responsive Game Board
 One of the biggest challenges was designing a game board that supports multiple difficulty levels with different card counts while remaining fully usable in portrait and 
 landscape orientations. The solution dynamically adjusts the number of columns and calculates the largest card size that fits the available space without clipping or requiring scrolling.
 
 ## Technologies Used
-| Category | Technology | Why |
-|----------|------------|-----|
-| Language | [![Kotlin](https://img.shields.io/badge/Kotlin-2.4.0-7F52FF?style=flat&logo=kotlin&logoColor=white)](https://kotlinlang.org/) | Main development language (my favorite 💜)
-| UI | [![Jetpack Compose](https://img.shields.io/badge/Jetpack%20Compose-4285F4?style=flat&logo=jetpackcompose&logoColor=white)](https://developer.android.com/jetpack/compose) | Declarative UI toolkit for building modern Android interfaces
-| Design System | [![Material 3](https://img.shields.io/badge/Material%203-6750A4?style=flat&logo=materialdesign&logoColor=white)](https://m3.material.io/) | Used to maintain visual consistency and modern UI practices
-| DI | [![Hilt](https://img.shields.io/badge/Hilt-34A853?style=flat&logo=android&logoColor=white)](https://dagger.dev/hilt/) | Dependency injection for dependency management
-| Persistence | [![Room](https://img.shields.io/badge/Room-4285F4?style=flat&logo=android&logoColor=white)](https://developer.android.com/training/data-storage/room) | Local persistence for completed game results and statistics
-| Preferences | [![DataStore](https://img.shields.io/badge/DataStore-3DDC84?style=flat&logo=android&logoColor=white)](https://developer.android.com/topic/libraries/architecture/datastore) | Persistent storage for user preferences such as theme, language, and vibration
-| Navigation | [![Navigation Compose](https://img.shields.io/badge/Navigation%20Compose-4285F4?style=flat&logo=android&logoColor=white)](https://developer.android.com/jetpack/compose/navigation) | Type-safe navigation between screens
+| Category      | Technology                                                                                                                                                                                                 | Why                                                                            |
+|---------------|------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|--------------------------------------------------------------------------------|
+| Language      | [![Kotlin](https://img.shields.io/badge/Kotlin-2.4.0-7F52FF?style=flat&logo=kotlin&logoColor=white)](https://kotlinlang.org/)                                                                              | Main development language (my favorite 💜)                                     |
+| UI            | [![Jetpack Compose](https://img.shields.io/badge/Jetpack%20Compose-4285F4?style=flat&logo=jetpackcompose&logoColor=white)](https://developer.android.com/jetpack/compose)                                  | Declarative UI toolkit for building modern Android interfaces                  |
+| Design System | [![Material 3](https://img.shields.io/badge/Material%203-6750A4?style=flat&logo=materialdesign&logoColor=white)](https://m3.material.io/)                                                                  | Used to maintain visual consistency and modern UI practices                    |
+| DI            | [![Hilt](https://img.shields.io/badge/Hilt-34A853?style=flat&logo=android&logoColor=white)](https://dagger.dev/hilt/)                                                                                      | Dependency injection for dependency management                                 |
+| Persistence   | [![Room](https://img.shields.io/badge/Room-4285F4?style=flat&logo=android&logoColor=white)](https://developer.android.com/training/data-storage/room)                                                      | Local persistence for completed game results and statistics                    |
+| Preferences   | [![DataStore](https://img.shields.io/badge/DataStore-3DDC84?style=flat&logo=android&logoColor=white)](https://developer.android.com/topic/libraries/architecture/datastore)                                | Persistent storage for user preferences such as theme, language, and vibration |
+| Testing       | [![JUnit 4](https://img.shields.io/badge/JUnit%204-25A162?style=flat&logo=junit4&logoColor=white)](https://junit.org/) [![MockK](https://img.shields.io/badge/MockK-FF9800?style=flat)](https://mockk.io/) | Unit testing for game logic and ViewModel behavior                             |
+| Navigation    | [![Navigation Compose](https://img.shields.io/badge/Navigation%20Compose-4285F4?style=flat&logo=android&logoColor=white)](https://developer.android.com/jetpack/compose/navigation)                        | Type-safe navigation between screens                                           |
 
 ## Contact
 <a href="https://www.linkedin.com/in/gblrodrigues">
-  <img src="https://img.shields.io/badge/LinkedIn-100%2B-0077B5?style=flat&logo=linkedin&logoColor=white"/>
+  <img src="https://img.shields.io/badge/LinkedIn-100%2B-0077B5?style=flat&logo=linkedin&logoColor=white" alt="My LinkedIn Profile"/>
 </a>

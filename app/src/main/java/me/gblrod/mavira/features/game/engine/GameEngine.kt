@@ -8,7 +8,8 @@ import me.gblrod.mavira.features.game.model.MemoryCard
 import me.gblrod.mavira.features.game.model.MemorySymbol
 
 class GameEngine {
-    private var state = GameState()
+    var state = GameState()
+        private set
 
     fun startGame(pairs: Int): GameState {
         require(pairs in 1..MemorySymbol.entries.size)
