@@ -1,9 +1,11 @@
 package me.gblrod.mavira.features.game.engine
 
+import me.gblrod.mavira.features.game.difficulty.model.DifficultyOptions
 import me.gblrod.mavira.features.game.model.MemoryCard
 import me.gblrod.mavira.features.game.model.MemorySymbol
 import org.junit.Assert.assertEquals
 import org.junit.Assert.assertFalse
+import org.junit.Assert.assertNotEquals
 import org.junit.Assert.assertNotNull
 import org.junit.Assert.assertNull
 import org.junit.Assert.assertTrue
@@ -33,7 +35,6 @@ class GameEngineTest {
     }
 
     @Test
-
     fun startGame_medium_Difficulty_createsDeckWith8PairsAnd16Cards() {
         val expectedPairs = 8
         val expectedCards = 16
@@ -453,6 +454,47 @@ class GameEngineTest {
             it.id == firstCard.id || it.id == secondCard.id
         }
         assertTrue(hiddenCards.all { !it.isRevealed })
+    }
+
+    @Test
+    fun getHint_noCardRevealed_returnsAvailablePair() {
+        gameEngine.startGame(
+            pairs = DifficultyOptions.EASY.pairs
+        )
+
+        val hintResult = gameEngine.getHint()
+
+        assertNotNull(hintResult)
+        assertEquals(2, hintResult?.cardIds?.size)
+
+        val hintedCards = gameEngine.state.cards.filter {
+            it.id in (hintResult?.cardIds ?: emptyList())
+        }
+
+        assertEquals(2, hintedCards.size)
+        assertEquals(hintedCards[0].symbol, hintedCards[1].symbol)
+    }
+
+    @Test
+    fun getHint_oneCardRevealed_returnsMatchingPartner() {
+        gameEngine.startGame(
+            pairs = DifficultyOptions.EASY.pairs
+        )
+
+        val firstCard = gameEngine.state.cards.first()
+        gameEngine.selectCard(firstCard.id)
+
+        val hintResult = gameEngine.getHint()
+
+        assertNotNull(hintResult)
+        assertEquals(1, hintResult?.cardIds?.size)
+
+        val hintedCard = gameEngine.state.cards.first {
+            it.id == hintResult?.cardIds?.first()
+        }
+
+        assertNotEquals(firstCard.id, hintedCard.id)
+        assertEquals(firstCard.symbol, hintedCard.symbol)
     }
 
     @Test
