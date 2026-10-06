@@ -7,7 +7,7 @@ import kotlinx.coroutines.flow.SharingStarted
 import kotlinx.coroutines.flow.filterNotNull
 import kotlinx.coroutines.flow.stateIn
 import kotlinx.coroutines.launch
-import me.gblrod.mavira.data.preferences.SettingsRepository
+import me.gblrod.mavira.data.datastore.repository.SettingsRepository
 import me.gblrod.mavira.features.game.difficulty.model.DifficultyOptions
 import me.gblrod.mavira.features.settings.model.LanguageOptions
 import me.gblrod.mavira.features.settings.model.ThemeOptions

@@ -1,4 +1,4 @@
-package me.gblrod.mavira.data.preferences
+package me.gblrod.mavira.data.datastore
 
 import android.content.Context
 import androidx.datastore.preferences.preferencesDataStore

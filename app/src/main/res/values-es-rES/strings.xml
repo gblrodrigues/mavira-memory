@@ -9,9 +9,10 @@
 
     <!-- Buttons -->
     <string name="button_play">Jugar</string>
+    <string name="button_challenge">Desafio cronometrado</string>
     <string name="button_stats">Estadísticas</string>
     <string name="button_configs">Configuración</string>
-    <string name="button_unavailable">PRÓXIMAMENTE</string>
+    <string name="button_challenge_disabled">%1$s</string>
     <string name="button_restart_game">Reiniciar</string>
     <string name="button_hint_game">Pista</string>
 
@@ -20,12 +21,14 @@
     <string name="route_statistics">Estadísticas</string>
     <string name="route_settings">Configuración</string>
     <string name="route_difficulty">Dificultad</string>
+    <string name="route_challenge">Desafio cronometrado</string>
 
     <!-- GameScreen -->
     <string name="game_movements">%1$d</string>
     <string name="game_pairs">%1$d/%2$d</string>
     <string name="game_timer">%1$s</string>
     <string name="share_game_result">Mavira Memory 🧠\n\n¡Juego completado!\n⏲️ Tiempo: %1$s\n🔥 Dificultad: %2$s\n🔄 Movimientos: %3$d\n🃏 Parejas: %4$d/%5$d\n\n¿Puedes hacerlo mejor? 😏</string>
+    <string name="share_challenge_complete_result">Mavira Memory 🧠\n\n¡Desafío cronometrado completado!\n⏲️ Tiempo restante: %1$s\n🔄 Movimientos: %2$d\n🃏 Parejas: %3$d/%4$d\n\n¿Puedes hacerlo mejor? 😏</string>
 
     <!-- Statistics -->
     <string name="statistics_title">Resumen</string>
@@ -46,6 +49,7 @@
 
     <!-- Dialog -->
     <string name="dialog_title">¡Enhorabuena!</string>
+    <string name="dialog_title_failed">¡Se acabó el tiempo!</string>
     <string name="dialog_home">Home</string>
     <string name="dialog_play_again">Jugar de nuevo</string>
     <string name="dialog_restart_game_title">¿Reiniciar la partida?</string>

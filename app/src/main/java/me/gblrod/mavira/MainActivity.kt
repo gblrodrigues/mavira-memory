@@ -7,7 +7,7 @@ import androidx.activity.enableEdgeToEdge
 import androidx.core.splashscreen.SplashScreen.Companion.installSplashScreen
 import dagger.hilt.android.AndroidEntryPoint
 import me.gblrod.mavira.app.MaviraRoot
-import me.gblrod.mavira.data.preferences.SettingsRepository
+import me.gblrod.mavira.data.datastore.repository.SettingsRepository
 import javax.inject.Inject
 
 @AndroidEntryPoint

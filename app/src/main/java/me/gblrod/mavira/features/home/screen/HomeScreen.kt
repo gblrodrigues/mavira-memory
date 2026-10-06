@@ -13,21 +13,28 @@ import androidx.compose.material3.Icon
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.getValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
+import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import me.gblrod.mavira.R
 import me.gblrod.mavira.features.home.components.HomeMenu
 import me.gblrod.mavira.features.home.model.ButtonItems
+import me.gblrod.mavira.features.home.viewmodel.HomeViewModel
 
 @Composable
 fun HomeScreen(
+    homeViewModel: HomeViewModel,
     onNavigatePlay: () -> Unit,
     onNavigateStats: () -> Unit,
     onNavigateConfig: () -> Unit,
+    onNavigateChallenge: () -> Unit
 ) {
+    val uiState by homeViewModel.uiState.collectAsStateWithLifecycle()
+
     Column(
         modifier = Modifier
             .fillMaxSize()
@@ -69,9 +76,12 @@ fun HomeScreen(
         Spacer(modifier = Modifier.height(24.dp))
 
         HomeMenu(
+            timeUntilAvailable = uiState.timeUntilChallenge,
+            isChallengeAvailable = uiState.isChallengeAvailable,
             onItemClick = { item ->
                 when (item) {
                     ButtonItems.PLAY -> onNavigatePlay()
+                    ButtonItems.CHALLENGE -> onNavigateChallenge()
                     ButtonItems.STATS -> onNavigateStats()
                     ButtonItems.CONFIG -> onNavigateConfig()
                 }

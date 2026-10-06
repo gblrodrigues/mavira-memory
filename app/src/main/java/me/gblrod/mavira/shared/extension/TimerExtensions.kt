@@ -6,3 +6,11 @@ fun Long.toTimerFormat(): String {
 
     return "%02d:%02d".format(minutes, seconds)
 }
+
+fun Long.toHoursMinutesSecondsFormat(): String {
+    val hours = this / 3600
+    val minutes = (this % 3600) / 60
+    val seconds = this % 60
+
+    return "%02d:%02d:%02d".format(hours, minutes, seconds)
+}
