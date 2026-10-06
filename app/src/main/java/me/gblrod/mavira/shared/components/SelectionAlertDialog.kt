@@ -3,7 +3,6 @@ package me.gblrod.mavira.shared.components
 import androidx.compose.foundation.BorderStroke
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.fillMaxWidth
-import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material3.AlertDialog
 import androidx.compose.material3.ButtonDefaults
 import androidx.compose.material3.MaterialTheme
@@ -41,7 +40,7 @@ fun SelectionAlertDialog(
             TextButton(
                 onClick = onConfirm,
                 colors = ButtonDefaults.buttonColors(containerColor = LightBlue),
-                shape = RoundedCornerShape(16.dp)
+                shape = MaterialTheme.shapes.large
             ) {
                 Text(
                     text = confirmText,
@@ -57,7 +56,7 @@ fun SelectionAlertDialog(
                     color = LightBlue
                 ),
                 colors = ButtonDefaults.buttonColors(containerColor = Color.Transparent),
-                shape = RoundedCornerShape(16.dp)
+                shape = MaterialTheme.shapes.large
             ) {
                 Text(
                     text = dismissText,
@@ -65,6 +64,6 @@ fun SelectionAlertDialog(
                 )
             }
         },
-        shape = RoundedCornerShape(16.dp)
+        shape = MaterialTheme.shapes.large
     )
 }

@@ -104,6 +104,7 @@ fun GameScreen(
         )
 
         ResultDialog(
+            pairsFound = uiState.pairsFound,
             pairsTotal = uiState.difficulty.pairs,
             moveCount = uiState.moveCount,
             playTime = uiState.timer,

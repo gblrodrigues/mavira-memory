@@ -8,7 +8,6 @@ import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.width
-import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.AccessTime
 import androidx.compose.material.icons.filled.Style
@@ -109,7 +108,7 @@ private fun CardItem(
     Card(
         colors = CardDefaults.cardColors(contentColor = color, containerColor = Color.Transparent),
         border = BorderStroke(width = 1.dp, color = color),
-        shape = RoundedCornerShape(16.dp),
+        shape = MaterialTheme.shapes.large,
         modifier = modifier
     ) {
         Column(

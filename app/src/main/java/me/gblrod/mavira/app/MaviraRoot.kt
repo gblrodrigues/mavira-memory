@@ -10,7 +10,7 @@ import androidx.compose.ui.platform.LocalResources
 import androidx.core.splashscreen.SplashScreen
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import me.gblrod.mavira.core.manager.LanguageManager
-import me.gblrod.mavira.data.preferences.SettingsRepository
+import me.gblrod.mavira.data.datastore.repository.SettingsRepository
 import me.gblrod.mavira.ui.theme.MaviraTheme
 
 @Composable

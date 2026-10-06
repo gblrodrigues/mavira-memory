@@ -17,7 +17,7 @@ import kotlinx.coroutines.flow.stateIn
 import kotlinx.coroutines.flow.update
 import kotlinx.coroutines.isActive
 import kotlinx.coroutines.launch
-import me.gblrod.mavira.data.preferences.SettingsRepository
+import me.gblrod.mavira.data.datastore.repository.SettingsRepository
 import me.gblrod.mavira.data.room.repository.GameRepository
 import me.gblrod.mavira.features.game.config.HintConfig
 import me.gblrod.mavira.features.game.engine.GameEngine

@@ -1,4 +1,4 @@
-package me.gblrod.mavira.data.preferences
+package me.gblrod.mavira.data.datastore.repository
 
 import android.content.Context
 import androidx.datastore.preferences.core.booleanPreferencesKey
@@ -13,6 +13,7 @@ import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.map
 import kotlinx.coroutines.flow.stateIn
 import me.gblrod.mavira.core.manager.LanguageManager.getDeviceLanguage
+import me.gblrod.mavira.data.datastore.maviraDataStore
 import me.gblrod.mavira.features.game.difficulty.model.DifficultyOptions
 import me.gblrod.mavira.features.settings.model.LanguageOptions
 import me.gblrod.mavira.features.settings.model.ThemeOptions

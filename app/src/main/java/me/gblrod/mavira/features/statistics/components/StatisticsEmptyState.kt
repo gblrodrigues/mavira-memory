@@ -10,7 +10,6 @@ import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.layout.width
-import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.History
 import androidx.compose.material.icons.filled.PlayArrow
@@ -63,7 +62,7 @@ fun StatisticsEmptyState(
         Button(
             onClick = { onClick() },
             elevation = ButtonDefaults.elevatedButtonElevation(defaultElevation = 6.dp),
-            shape = RoundedCornerShape(16.dp),
+            shape = MaterialTheme.shapes.large,
             colors = ButtonDefaults.buttonColors(containerColor = LightBlue),
             border = BorderStroke(
                 width = 1.dp,

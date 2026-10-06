@@ -17,7 +17,7 @@ import kotlinx.coroutines.test.UnconfinedTestDispatcher
 import kotlinx.coroutines.test.advanceTimeBy
 import kotlinx.coroutines.test.runCurrent
 import kotlinx.coroutines.test.runTest
-import me.gblrod.mavira.data.preferences.SettingsRepository
+import me.gblrod.mavira.data.datastore.repository.SettingsRepository
 import me.gblrod.mavira.data.room.repository.GameRepository
 import me.gblrod.mavira.features.game.difficulty.model.DifficultyOptions
 import me.gblrod.mavira.features.game.model.GameEffect

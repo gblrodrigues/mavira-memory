@@ -13,7 +13,6 @@ import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.size
-import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.QuestionMark
 import androidx.compose.material3.Card
@@ -73,7 +72,7 @@ fun MemoryCardItem(
                 onClick = { onClick() }
             ),
         border = borderStroke,
-        shape = RoundedCornerShape(16.dp),
+        shape = MaterialTheme.shapes.large,
         colors = CardDefaults.cardColors(
             containerColor = when {
                 card.isGlowing && !card.isRevealed -> Yellow.copy(alpha = 0.25f * glowAlpha)

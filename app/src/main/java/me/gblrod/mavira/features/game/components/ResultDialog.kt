@@ -7,7 +7,6 @@ import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
-import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.AccessTime
 import androidx.compose.material.icons.filled.Home
@@ -38,19 +37,21 @@ import me.gblrod.mavira.ui.theme.LightBlue
 
 @Composable
 fun ResultDialog(
+    pairsFound: Int,
     pairsTotal: Int,
     moveCount: Int,
     playTime: Long,
     onNavigateHome: () -> Unit,
-    onRestartGame: () -> Unit,
-    onShareResult: () -> Unit
+    onRestartGame: (() -> Unit)? = null,
+    onShareResult: (() -> Unit)? = null,
+    dialogTitle: Int = R.string.dialog_title
 ) {
     Dialog(
         onDismissRequest = { onNavigateHome() }
     ) {
         Card(
             modifier = Modifier.fillMaxWidth(),
-            shape = RoundedCornerShape(16.dp),
+            shape = MaterialTheme.shapes.large,
             colors = CardDefaults.cardColors(containerColor = MaterialTheme.colorScheme.surface)
         ) {
             Column(
@@ -58,7 +59,7 @@ fun ResultDialog(
                 horizontalAlignment = Alignment.CenterHorizontally
             ) {
                 Text(
-                    text = stringResource(id = R.string.dialog_title),
+                    text = stringResource(id = dialogTitle),
                     style = MaterialTheme.typography.headlineSmall,
                     fontWeight = FontWeight.Bold,
                     color = MaterialTheme.colorScheme.onSurface
@@ -77,7 +78,7 @@ fun ResultDialog(
 
                     ResultCard(
                         icon = Icons.Default.Style,
-                        label = pairsTotal.toString()
+                        label = "$pairsFound/$pairsTotal"
                     )
 
                     ResultCard(
@@ -88,38 +89,44 @@ fun ResultDialog(
 
                 Spacer(modifier = Modifier.height(24.dp))
 
-                OutlinedButton(
-                    onClick = { onShareResult() },
-                    modifier = Modifier.fillMaxWidth(),
-                    shape = RoundedCornerShape(16.dp)
-                ) {
-                    IconTextRow(
-                        icon = Icons.Default.IosShare,
-                        text = stringResource(id = R.string.dialog_share_result),
-                        color = LightBlue
-                    )
+                if (onShareResult != null) {
+                    OutlinedButton(
+                        onClick = { onShareResult() },
+                        modifier = Modifier.fillMaxWidth(),
+                        shape = MaterialTheme.shapes.large
+                    ) {
+                        IconTextRow(
+                            icon = Icons.Default.IosShare,
+                            text = stringResource(id = R.string.dialog_share_result),
+                            color = LightBlue
+                        )
+                    }
                 }
+
 
                 Spacer(modifier = Modifier.height(4.dp))
 
-                OutlinedButton(
-                    onClick = { onRestartGame() },
-                    modifier = Modifier.fillMaxWidth(),
-                    shape = RoundedCornerShape(16.dp),
-                    colors = ButtonDefaults.buttonColors(containerColor = EmeraldGreen)
-                ) {
-                    IconTextRow(
-                        icon = Icons.Default.PlayArrow,
-                        text = stringResource(id = R.string.dialog_play_again)
-                    )
+                if (onRestartGame != null) {
+                    OutlinedButton(
+                        onClick = { onRestartGame() },
+                        modifier = Modifier.fillMaxWidth(),
+                        shape = MaterialTheme.shapes.large,
+                        colors = ButtonDefaults.buttonColors(containerColor = EmeraldGreen)
+                    ) {
+                        IconTextRow(
+                            icon = Icons.Default.PlayArrow,
+                            text = stringResource(id = R.string.dialog_play_again)
+                        )
+                    }
                 }
+
 
                 Spacer(modifier = Modifier.height(4.dp))
 
                 OutlinedButton(
                     onClick = { onNavigateHome() },
                     modifier = Modifier.fillMaxWidth(),
-                    shape = RoundedCornerShape(16.dp)
+                    shape = MaterialTheme.shapes.large
                 ) {
                     IconTextRow(
                         icon = Icons.Default.Home,

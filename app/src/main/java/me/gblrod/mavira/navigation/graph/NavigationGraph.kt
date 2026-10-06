@@ -11,10 +11,13 @@ import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import androidx.navigation.NavHostController
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
+import me.gblrod.mavira.features.game.challenge.screen.ChallengeScreen
+import me.gblrod.mavira.features.game.challenge.viewmodel.ChallengeViewModel
 import me.gblrod.mavira.features.game.difficulty.screen.DifficultyScreen
 import me.gblrod.mavira.features.game.screen.GameScreen
 import me.gblrod.mavira.features.game.viewmodel.GameViewModel
 import me.gblrod.mavira.features.home.screen.HomeScreen
+import me.gblrod.mavira.features.home.viewmodel.HomeViewModel
 import me.gblrod.mavira.features.settings.screen.SettingsScreen
 import me.gblrod.mavira.features.settings.viewmodel.SettingsViewModel
 import me.gblrod.mavira.features.statistics.screen.StatisticsScreen
@@ -34,14 +37,17 @@ fun NavigationGraph(
         modifier = Modifier.padding(paddingValues = paddingValues)
     ) {
         composable<Route.Home> {
+            val homeViewModel: HomeViewModel = hiltViewModel()
             LaunchedEffect(Unit) {
                 onTopBarStateChange(TopBarState())
             }
 
             HomeScreen(
+                homeViewModel = homeViewModel,
                 onNavigatePlay = { navHostController.navigate(Route.Game) },
+                onNavigateChallenge = { navHostController.navigate(Route.Challenge) },
                 onNavigateStats = { navHostController.navigate(Route.Stats) },
-                onNavigateConfig = { navHostController.navigate(Route.Config) },
+                onNavigateConfig = { navHostController.navigate(Route.Config) }
             )
         }
 
@@ -82,6 +88,15 @@ fun NavigationGraph(
                     settingsViewModel.setDifficulty(difficulty = difficulty)
                     navHostController.popBackStack()
                 }
+            )
+        }
+
+        composable<Route.Challenge> {
+            val challengeViewModel: ChallengeViewModel = hiltViewModel()
+
+            ChallengeScreen(
+                challengeViewModel = challengeViewModel,
+                onNavigateHome = { navHostController.popBackStack() }
             )
         }
     }
