@@ -1,32 +1,20 @@
 # Mavira
 Mavira is an Android memory matching game built with Kotlin and Jetpack Compose, featuring multiple difficulty levels, a hint system, a timed challenge, persistent statistics and preferences, responsive layouts, configurable haptic feedback, and native game-result sharing.
 
-- [Features](#features)
 - [Preview](#preview)
+- [Features](#features)
 - [Architecture](#architecture)
 - [Biggest Challenge](#biggest-challenge)
 - [Technologies Used](#technologies-used)
 - [Tests](#tests)
 - [Contact](#contact)
 
-## Features
-* Memory matching game with multiple difficulty levels
-* Match and mismatch card interactions
-* Move counter
-* Game timer
-* Restart with confirmation
-* Game completion results
-* Timed Challenge with a 2 minutes countdown and one attempt per day
-* Hint system with limited uses per game
-* Share completed game results
-* Statistics and recent games history
-* Persistent game results with Room
-* Theme selection (System, Dark, Light)
-* Language selection (English, Spanish, Portuguese)
-* Configurable haptic feedback
-* Persistent user preferences with DataStore
-
 ## Preview
+### Full App Demo
+A walkthrough of Mavira, showcasing gameplay, game modes, settings, statistics, and other features.
+
+https://github.com/user-attachments/assets/646a65ae-7072-4ad3-9738-01e86e55aac7
+
 ### Screenshots
 <table>
   <tr>
@@ -66,8 +54,22 @@ Mavira is an Android memory matching game built with Kotlin and Jetpack Compose,
   </tr>
 </table>
 
-### Demo
-https://github.com/user-attachments/assets/646a65ae-7072-4ad3-9738-01e86e55aac7
+## Features
+* Memory matching game with multiple difficulty levels
+* Match and mismatch card interactions
+* Move counter
+* Game timer
+* Restart with confirmation
+* Game completion results
+* Timed Challenge with a 2 minutes countdown and one attempt per day
+* Hint system with limited uses per game
+* Share completed game results
+* Statistics and recent games history
+* Persistent game results with Room
+* Theme selection (System, Dark, Light)
+* Language selection (English, Spanish, Portuguese)
+* Configurable haptic feedback
+* Persistent user preferences with DataStore
 
 ## Architecture
 ```text
