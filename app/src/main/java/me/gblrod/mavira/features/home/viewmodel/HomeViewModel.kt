@@ -8,6 +8,7 @@ import kotlinx.coroutines.flow.SharingStarted
 import kotlinx.coroutines.flow.combine
 import kotlinx.coroutines.flow.flow
 import kotlinx.coroutines.flow.stateIn
+import me.gblrod.mavira.data.datastore.model.ChallengeDateState
 import me.gblrod.mavira.data.datastore.repository.ChallengeRepository
 import me.gblrod.mavira.features.home.state.HomeUiState
 import java.time.Duration
@@ -28,9 +29,29 @@ class HomeViewModel @Inject constructor(
     }
 
     val uiState = combine(
-        flow = challengeRepository.lastChallengeDate,
+        flow = challengeRepository.challengeDateState,
         flow2 = currentDateTime
-    ) { lastChallengeDate, currentDateTime ->
+    ) { challengeDateState, currentDateTime ->
+        createUiState(
+            challengeDateState = challengeDateState,
+            currentDateTime = currentDateTime
+        )
+    }.stateIn(
+        scope = viewModelScope,
+        started = SharingStarted.WhileSubscribed(stopTimeoutMillis = 5_000),
+        initialValue = createUiState(
+            challengeDateState = challengeRepository.challengeDateState.value,
+            currentDateTime = LocalDateTime.now()
+        )
+    )
+
+    private fun createUiState(
+        challengeDateState: ChallengeDateState,
+        currentDateTime: LocalDateTime
+    ): HomeUiState {
+        if (challengeDateState is ChallengeDateState.Loading) return HomeUiState()
+
+        val lastChallengeDate = (challengeDateState as ChallengeDateState.Loaded).lastAttemptDate
 
         val today = currentDateTime.toLocalDate()
 
@@ -38,16 +59,12 @@ class HomeViewModel @Inject constructor(
             .plusDays(1)
             .atStartOfDay()
 
-        HomeUiState(
+        return HomeUiState(
             isChallengeAvailable = lastChallengeDate != today,
             timeUntilChallenge = Duration
                 .between(currentDateTime, nextDay)
                 .seconds
                 .coerceAtLeast(minimumValue = 0L)
         )
-    }.stateIn(
-        scope = viewModelScope,
-        started = SharingStarted.WhileSubscribed(stopTimeoutMillis = 5_000),
-        initialValue = HomeUiState()
-    )
+    }
 }

@@ -32,7 +32,7 @@ fun HomeMenu(
 ) {
     ButtonItems.entries.forEach { item ->
         val isEnabled = when (item) {
-            ButtonItems.CHALLENGE -> isChallengeAvailable != false
+            ButtonItems.CHALLENGE -> isChallengeAvailable == true
             else -> true
         }
 
@@ -64,7 +64,7 @@ fun HomeMenu(
 
                 Spacer(modifier = Modifier.weight(1f))
 
-                if (!isEnabled) {
+                if (!isEnabled && item == ButtonItems.CHALLENGE) {
                     ChallengeCooldownUi(
                         timeUntilAvailable = timeUntilAvailable
                     )

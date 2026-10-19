@@ -7,6 +7,7 @@ import androidx.activity.enableEdgeToEdge
 import androidx.core.splashscreen.SplashScreen.Companion.installSplashScreen
 import dagger.hilt.android.AndroidEntryPoint
 import me.gblrod.mavira.app.MaviraRoot
+import me.gblrod.mavira.data.datastore.repository.ChallengeRepository
 import me.gblrod.mavira.data.datastore.repository.SettingsRepository
 import javax.inject.Inject
 
@@ -14,6 +15,8 @@ import javax.inject.Inject
 class MainActivity : ComponentActivity() {
     @Inject
     lateinit var settingsRepository: SettingsRepository
+    @Inject
+    lateinit var challengeRepository: ChallengeRepository
 
     override fun onCreate(savedInstanceState: Bundle?) {
         val splashScreen = installSplashScreen()
@@ -22,6 +25,7 @@ class MainActivity : ComponentActivity() {
         setContent {
             MaviraRoot(
                 settingsRepository = settingsRepository,
+                challengeRepository = challengeRepository,
                 splashScreen = splashScreen
             )
         }
