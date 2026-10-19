@@ -10,40 +10,47 @@ import androidx.compose.ui.platform.LocalResources
 import androidx.core.splashscreen.SplashScreen
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import me.gblrod.mavira.core.manager.LanguageManager
+import me.gblrod.mavira.data.datastore.model.ChallengeDateState
+import me.gblrod.mavira.data.datastore.repository.ChallengeRepository
 import me.gblrod.mavira.data.datastore.repository.SettingsRepository
 import me.gblrod.mavira.ui.theme.MaviraTheme
 
 @Composable
 fun MaviraRoot(
     settingsRepository: SettingsRepository,
+    challengeRepository: ChallengeRepository,
     splashScreen: SplashScreen
 ) {
     val settings by settingsRepository.settings.collectAsStateWithLifecycle()
+    val challengeDateState by challengeRepository.challengeDateState.collectAsStateWithLifecycle()
+    val isChallengeDateLoaded = challengeDateState is ChallengeDateState.Loaded
 
     splashScreen.setKeepOnScreenCondition {
-        settings == null
+        settings == null || !isChallengeDateLoaded
     }
 
     settings?.let { settings ->
-        val baseContext = LocalContext.current
-        val locale = remember(settings.languageOptions) {
-            LanguageManager.resolveLocale(language = settings.languageOptions)
-        }
+        if (isChallengeDateLoaded) {
+            val baseContext = LocalContext.current
+            val locale = remember(settings.languageOptions) {
+                LanguageManager.resolveLocale(language = settings.languageOptions)
+            }
 
-        val localizedContext = remember(baseContext, locale) {
-            LanguageManager.applyLocale(base = baseContext, locale = locale)
-        }
+            val localizedContext = remember(baseContext, locale) {
+                LanguageManager.applyLocale(base = baseContext, locale = locale)
+            }
 
-        val configuration = localizedContext.resources.configuration
+            val configuration = localizedContext.resources.configuration
 
-        MaviraTheme(
-            themeOptions = settings.themeOptions
-        ) {
-            CompositionLocalProvider(
-                LocalConfiguration provides configuration,
-                LocalResources provides localizedContext.resources
+            MaviraTheme(
+                themeOptions = settings.themeOptions
             ) {
-                MaviraApp()
+                CompositionLocalProvider(
+                    LocalConfiguration provides configuration,
+                    LocalResources provides localizedContext.resources
+                ) {
+                    MaviraApp()
+                }
             }
         }
     }
