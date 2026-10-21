@@ -105,6 +105,8 @@ Mavira includes unit tests covering game logic and ViewModel behavior, including
 * Game completion and restart
 * Timer behavior
 * Hint behavior
+* Timed Challenge initialization, countdown, and daily attempt registration
+* Challenge timeout, completion, and post game interaction handling
 * ViewModel state and game effects
 
 ## Biggest Challenge
