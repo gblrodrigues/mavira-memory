@@ -8,6 +8,8 @@ import androidx.compose.foundation.layout.width
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.automirrored.filled.ArrowBack
 import androidx.compose.material.icons.filled.Lightbulb
+import androidx.compose.material.icons.filled.MusicNote
+import androidx.compose.material.icons.filled.MusicOff
 import androidx.compose.material.icons.filled.RestartAlt
 import androidx.compose.material3.Badge
 import androidx.compose.material3.BadgedBox
@@ -38,7 +40,9 @@ fun MaviraAppBar(
     onRestartGame: () -> Unit = {},
     hintsRemaining: Int = HintConfig.INITIAL_HINTS,
     isHintEnabled: Boolean = false,
-    onHintGame: () -> Unit = {}
+    onHintGame: () -> Unit = {},
+    isMusicBackgroundEnabled: Boolean = false,
+    onMusicBackgroundChanged: (Boolean) -> Unit = {}
 ) {
     TopAppBar(
         modifier = Modifier.height(76.dp),
@@ -61,6 +65,21 @@ fun MaviraAppBar(
             }
         },
         actions = {
+            if (config.showMusicBackground) {
+                IconButton(
+                    onClick = { onMusicBackgroundChanged(!isMusicBackgroundEnabled) }
+                ) {
+                    Icon(
+                        imageVector = if (isMusicBackgroundEnabled) Icons.Default.MusicNote else Icons.Default.MusicOff,
+                        contentDescription = if (isMusicBackgroundEnabled) {
+                            stringResource(id = R.string.button_music_background_disable)
+                        } else {
+                            stringResource(id = R.string.button_music_background_activate)
+                        }
+                    )
+                }
+            }
+
             if (config.showHint && config.showRestartGame) {
                 Row(
                     verticalAlignment = Alignment.CenterVertically,

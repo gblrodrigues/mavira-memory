@@ -17,7 +17,10 @@ import me.gblrod.mavira.shared.components.topbar.TopBarState
 import me.gblrod.mavira.shared.components.topbar.topBarConfig
 
 @Composable
-fun MaviraApp() {
+fun MaviraApp(
+    isMusicBackgroundEnabled: Boolean = false,
+    onMusicBackgroundChanged: (Boolean) -> Unit = {}
+) {
     val navHostController = rememberNavController()
 
     val backStackEntry by navHostController.currentBackStackEntryAsState()
@@ -38,7 +41,9 @@ fun MaviraApp() {
                     onRestartGame = topBarState.onRestartGame,
                     hintsRemaining = topBarState.hintsRemaining,
                     isHintEnabled = topBarState.isHintEnabled,
-                    onHintGame = topBarState.onHintGame
+                    onHintGame = topBarState.onHintGame,
+                    isMusicBackgroundEnabled = isMusicBackgroundEnabled,
+                    onMusicBackgroundChanged = onMusicBackgroundChanged
                 )
             }
         }

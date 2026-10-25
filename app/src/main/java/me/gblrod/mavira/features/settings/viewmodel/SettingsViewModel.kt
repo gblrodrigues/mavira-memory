@@ -47,6 +47,12 @@ class SettingsViewModel @Inject constructor(
         }
     }
 
+    fun setMusicBackground(enabled: Boolean) {
+        viewModelScope.launch {
+            settingsRepository.setMusicBackground(enabled)
+        }
+    }
+
     fun setDifficulty(difficulty: DifficultyOptions) {
         viewModelScope.launch {
             settingsRepository.setDifficulty(difficulty)

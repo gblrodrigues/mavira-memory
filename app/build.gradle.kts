@@ -67,6 +67,10 @@ dependencies {
     // SplashScreen
     implementation(libs.androidx.core.splashscreen)
 
+    // Media3
+    implementation(libs.media3.exoplayer)
+    implementation(libs.media3.ui)
+
     // Kotlin Serialization
     implementation(libs.kotlinx.serialization.json)
 

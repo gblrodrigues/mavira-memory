@@ -8,5 +8,6 @@ data class SettingsUiState(
     val themeOptions: ThemeOptions = ThemeOptions.SYSTEM,
     val languageOptions: LanguageOptions = LanguageOptions.EN_US,
     val vibrationEnabled: Boolean = true,
+    val musicBackgroundEnabled: Boolean = true,
     val difficultyOptions: DifficultyOptions = DifficultyOptions.EASY
 )
