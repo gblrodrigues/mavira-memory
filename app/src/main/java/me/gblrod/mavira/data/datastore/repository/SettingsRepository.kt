@@ -24,6 +24,7 @@ import javax.inject.Singleton
 val themeKey = stringPreferencesKey(name = "theme")
 val languageKey = stringPreferencesKey(name = "language")
 val vibrationKey = booleanPreferencesKey(name = "vibration")
+val musicBackgroundKey = booleanPreferencesKey(name = "music_background")
 val difficultyKey = stringPreferencesKey(name = "difficulty")
 
 @Singleton
@@ -46,6 +47,8 @@ class SettingsRepository @Inject constructor(
                     ?: getDeviceLanguage(),
 
                 vibrationEnabled = prefs[vibrationKey] ?: true,
+
+                musicBackgroundEnabled = prefs[musicBackgroundKey] ?: true,
 
                 difficultyOptions = prefs[difficultyKey]
                     ?.let(block = DifficultyOptions::valueOf)
@@ -72,6 +75,12 @@ class SettingsRepository @Inject constructor(
     suspend fun setVibration(enabled: Boolean) {
         context.maviraDataStore.edit { prefs ->
             prefs[vibrationKey] = enabled
+        }
+    }
+
+    suspend fun setMusicBackground(enabled: Boolean) {
+        context.maviraDataStore.edit { prefs ->
+            prefs[musicBackgroundKey] = enabled
         }
     }
 

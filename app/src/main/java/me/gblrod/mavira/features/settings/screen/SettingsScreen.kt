@@ -17,6 +17,7 @@ import androidx.compose.ui.unit.dp
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import me.gblrod.mavira.R
 import me.gblrod.mavira.features.settings.components.AppearanceSettingsCard
+import me.gblrod.mavira.features.settings.components.AudioSettingsCard
 import me.gblrod.mavira.features.settings.components.GameplaySettingsCard
 import me.gblrod.mavira.features.settings.components.SettingsHeader
 import me.gblrod.mavira.features.settings.components.SettingsLanguageDialog
@@ -62,6 +63,13 @@ fun SettingsScreen(
                 onVibrationChanged = { settingsViewModel.setVibration(enabled = it) },
                 difficulty = uiState.difficultyOptions,
                 onDifficultyClick = { onNavigateDifficulty() }
+            )
+        }
+
+        item {
+            AudioSettingsCard(
+                musicBackgroundEnabled = uiState.musicBackgroundEnabled,
+                onMusicBackgroundChanged = { settingsViewModel.setMusicBackground(enabled = it) }
             )
         }
     }

@@ -9,7 +9,8 @@ import me.gblrod.mavira.navigation.routes.Route
 data class TopBarConfig(
     val title: Int,
     val showHint: Boolean = false,
-    val showRestartGame: Boolean = false
+    val showRestartGame: Boolean = false,
+    val showMusicBackground: Boolean = false
 )
 
 data class TopBarState(
@@ -26,7 +27,8 @@ fun NavDestination?.topBarConfig(): TopBarConfig? {
             TopBarConfig(
                 title = R.string.route_game,
                 showHint = true,
-                showRestartGame = true
+                showRestartGame = true,
+                showMusicBackground = true
             )
         }
 
@@ -50,7 +52,8 @@ fun NavDestination?.topBarConfig(): TopBarConfig? {
 
         this?.hasRoute<Route.Challenge>() == true -> {
             TopBarConfig(
-                title = R.string.route_challenge
+                title = R.string.route_challenge,
+                showMusicBackground = true
             )
         }
 

@@ -2,13 +2,23 @@ package me.gblrod.mavira.app
 
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.CompositionLocalProvider
+import androidx.compose.runtime.DisposableEffect
+import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.getValue
+import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
+import androidx.compose.runtime.rememberCoroutineScope
+import androidx.compose.runtime.setValue
 import androidx.compose.ui.platform.LocalConfiguration
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.platform.LocalResources
 import androidx.core.splashscreen.SplashScreen
+import androidx.lifecycle.Lifecycle
+import androidx.lifecycle.LifecycleEventObserver
+import androidx.lifecycle.compose.LocalLifecycleOwner
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
+import kotlinx.coroutines.launch
+import me.gblrod.mavira.core.audio.BackgroundMusicPlayer
 import me.gblrod.mavira.core.manager.LanguageManager
 import me.gblrod.mavira.data.datastore.model.ChallengeDateState
 import me.gblrod.mavira.data.datastore.repository.ChallengeRepository
@@ -24,6 +34,51 @@ fun MaviraRoot(
     val settings by settingsRepository.settings.collectAsStateWithLifecycle()
     val challengeDateState by challengeRepository.challengeDateState.collectAsStateWithLifecycle()
     val isChallengeDateLoaded = challengeDateState is ChallengeDateState.Loaded
+    val context = LocalContext.current
+    val lifecycleOwner = LocalLifecycleOwner.current
+    val scope = rememberCoroutineScope()
+
+    var isAppInForeground by remember(lifecycleOwner) {
+        mutableStateOf(lifecycleOwner.lifecycle.currentState.isAtLeast(Lifecycle.State.STARTED))
+    }
+
+    val backgroundMusicPlayer = remember(context) {
+        BackgroundMusicPlayer(context = context.applicationContext)
+    }
+
+    DisposableEffect(backgroundMusicPlayer) {
+        onDispose {
+            backgroundMusicPlayer.release()
+        }
+    }
+
+    DisposableEffect(lifecycleOwner) {
+        val observer = LifecycleEventObserver { _, event ->
+            when (event) {
+                Lifecycle.Event.ON_START -> isAppInForeground = true
+                Lifecycle.Event.ON_STOP -> isAppInForeground = false
+                else -> Unit
+            }
+        }
+
+        lifecycleOwner.lifecycle.addObserver(observer)
+
+        onDispose {
+            lifecycleOwner.lifecycle.removeObserver(observer)
+        }
+    }
+
+    LaunchedEffect(
+        settings?.musicBackgroundEnabled,
+        isAppInForeground,
+        backgroundMusicPlayer
+    ) {
+        if (settings?.musicBackgroundEnabled == true && isAppInForeground) {
+            backgroundMusicPlayer.play()
+        } else {
+            backgroundMusicPlayer.pause()
+        }
+    }
 
     splashScreen.setKeepOnScreenCondition {
         settings == null || !isChallengeDateLoaded
@@ -49,7 +104,14 @@ fun MaviraRoot(
                     LocalConfiguration provides configuration,
                     LocalResources provides localizedContext.resources
                 ) {
-                    MaviraApp()
+                    MaviraApp(
+                        isMusicBackgroundEnabled = settings.musicBackgroundEnabled,
+                        onMusicBackgroundChanged = {
+                            scope.launch {
+                                settingsRepository.setMusicBackground(enabled = it)
+                            }
+                        }
+                    )
                 }
             }
         }

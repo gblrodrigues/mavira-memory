@@ -15,6 +15,9 @@
     <string name="button_challenge_disabled">%1$s</string>
     <string name="button_restart_game">Reiniciar</string>
     <string name="button_hint_game">Dica</string>
+    <string name="button_music_background">Música de fundo</string>
+    <string name="button_music_background_activate">Ativar música</string>
+    <string name="button_music_background_disable">Desativar música</string>
 
     <!-- Routes -->
     <string name="route_game">Mavira Memory</string>
@@ -70,8 +73,11 @@
     <string name="settings_preferences_description">Configure as preferências do seu jogo.</string>
     <string name="settings_appearance_label">APARÊNCIA</string>
     <string name="settings_gameplay_label">GAMEPLAY</string>
+    <string name="settings_audio_label">ÁUDIO</string>
     <string name="settings_vibration_label">Vibração</string>
     <string name="settings_vibration_description">Feedback tátil durante a partida</string>
+    <string name="settings_background_music_label">Música de fundo</string>
+    <string name="settings_background_music_description">Tocar música de fundo</string>
     <string name="settings_theme_label">Tema</string>
     <string name="settings_language_label">Idioma</string>
     <string name="settings_difficulty_label">Dificuldade</string>
